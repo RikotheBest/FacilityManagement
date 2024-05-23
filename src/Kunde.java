@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
 
-
-public class Kunde implements Comparable {
+public class Kunde {
     private int nummer;
     private String name;
     /*    String Typ; soll diese Klasse eine Mutterklasse werden, wenn es verschiede Typen gibt?
@@ -36,8 +37,8 @@ public class Kunde implements Comparable {
         this.name = name;
     }
 
-  /*  public double getGroesse() {
-        return groesse.flaeche + groesse.raeume + groesse.stockwerke;
+    public double getGroesse() {
+        return groesse.flaeche;
     }
 
     public void setGroesse(Groesse groesse) {
@@ -52,10 +53,19 @@ public class Kunde implements Comparable {
         this.adresse = adresse;
     }
 
-
-    public int compareTo(Object o) {
-        return 0;
+   public String getBaujahr() {
+        return baujahr.toString();
     }
+
+    public void setBaujahr(Datum baujahr) {
+        this.baujahr = baujahr;
+    }
+
+    public void sortiereDatum(ArrayList<Datum> d){
+        Collections.sort(d);
+    }
+    public void sortiereFlaeche(ArrayList<Groesse> g){
+        Collections.sort(g);
+    }
+
 }
-   */
-//In Bearbeitung!
