@@ -1,35 +1,23 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Vertrag {
-    private int vertragsnummer;
-    private Datum startdatum;
-    private Datum enddatum;
+    private Intervall dauer;
 
-    public Vertrag(int vertragsnummer, Datum startdatum, Datum enddatum) {
-        this.vertragsnummer = vertragsnummer;
-        this.startdatum = startdatum;
-        this.enddatum = enddatum;
+
+    public Vertrag() {
     }
 
-    public int getVertragsnummer() {
-        return vertragsnummer;
+    public Vertrag(Intervall dauer) {
+        this.dauer = dauer;
     }
 
-    public void setVertragsnummer(int vertragsnummer) {
-        this.vertragsnummer = vertragsnummer;
+
+    public Intervall getDauer() {
+        return dauer;
     }
 
-    public Datum getStartdatum() {
-        return startdatum;
-    }
-
-    public void setStartdatum(Datum startdatum) {
-        this.startdatum = startdatum;
-    }
-
-    public Datum getEnddatum() {
-        return enddatum;
-    }
-
-    public void setEnddatum(Datum enddatum) {
-        this.enddatum = enddatum;
+    public void setDauer(Intervall dauer) {
+        this.dauer = dauer;
     }
 }
