@@ -1,23 +1,20 @@
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Vertrag {
-    private Intervall dauer;
+    private ZeitRaum dauer;
 
 
     public Vertrag() {
     }
 
-    public Vertrag(Intervall dauer) {
+    public Vertrag(ZeitRaum dauer) {
         this.dauer = dauer;
     }
 
 
-    public Intervall getDauer() {
+    public ZeitRaum getDauer() {
         return dauer;
     }
 
-    public void setDauer(Intervall dauer) {
+    public void setDauer(ZeitRaum dauer) {
         this.dauer = dauer;
     }
 }

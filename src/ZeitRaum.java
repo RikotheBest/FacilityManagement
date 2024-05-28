@@ -1,8 +1,8 @@
-public class Intervall <T1 extends Datum, T2 extends Datum> {
+public class ZeitRaum<T1 extends Datum, T2 extends Datum> {
    private T1 anfang;
    private T2 ende;
 
-    public Intervall(T1 anfang, T2 ende) {
+    public ZeitRaum(T1 anfang, T2 ende) {
         this.anfang = anfang;
         this.ende = ende;
     }
