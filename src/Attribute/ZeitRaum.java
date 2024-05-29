@@ -12,7 +12,7 @@ public class ZeitRaum<T1 extends Datum, T2 extends Datum> {
     }
 
     public String toString() {
-        return anfang.toString() + " - " + ende.toString();
+        return "von " + anfang.toString() + " bis " + ende.toString();
     }
 
     public T1 getAnfang() {
