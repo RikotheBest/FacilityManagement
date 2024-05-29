@@ -1,3 +1,5 @@
+package Attribute;
+
 public class Groesse implements Comparable<Groesse>{
     private int stockwerke;
     private double flaeche;

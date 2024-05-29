@@ -1,3 +1,6 @@
+package Vertraege;
+import Attribute.ZeitRaum;
+
 public class Vertrag {
     private ZeitRaum dauer;
 

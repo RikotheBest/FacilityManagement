@@ -1,3 +1,5 @@
+package Attribute;
+
 public class Adresse {
     private String strasse;
     private int post;

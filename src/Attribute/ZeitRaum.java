@@ -1,3 +1,7 @@
+package Attribute;
+
+import Attribute.Datum;
+
 public class ZeitRaum<T1 extends Datum, T2 extends Datum> {
    private T1 anfang;
    private T2 ende;
