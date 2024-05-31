@@ -4,7 +4,7 @@ import Auftraege.Auftrag_Organisator;
 
 
 public abstract class Ausstattung {
-	String name;
+	private String name;
 	int preis;
 	String ort;
 	Auftrag_Organisator auftraege;

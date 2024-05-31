@@ -46,4 +46,14 @@ public class Auftrag {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Auftrag{" +
+                "geplant=" + geplant +
+                ", nummer=" + nummer +
+                ", kategorie='" + kategorie + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

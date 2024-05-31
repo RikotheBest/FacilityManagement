@@ -16,16 +16,30 @@ public class Auftrag_Organisator {
     Comparator<Auftrag> nachDatum = new Comparator<>() {
 
         public int compare(Auftrag o1, Auftrag o2) {
-            if(o1.getGeplant().getDate().getYear() < o2.getGeplant().getDate().getYear()) return 1;
-            else if (o1.getGeplant().getDate().getMonthValue() < o2.getGeplant().getDate().getMonthValue()) return 1;
-            else if (o1.getGeplant().getDate().getDayOfMonth() < o2.getGeplant().getDate().getDayOfMonth()) return 1;
-            else return -1;
-
+            return o1.getGeplant().getDate().compareTo(o2.getGeplant().getDate());
         }
 
     };
 
     public void sort(){
         Collections.sort(auftraege,nachDatum);
+    }
+    public void add(Datum geplant, int nummer, String kategorie, boolean status){
+        auftraege.add(new Auftrag(geplant, nummer, kategorie, status));
+    }
+
+    public ArrayList<Auftrag> getAuftraege() {
+        return auftraege;
+    }
+
+    public void setAuftraege(ArrayList<Auftrag> auftraege) {
+        this.auftraege = auftraege;
+    }
+
+    @Override
+    public String toString() {
+        for (Auftrag a :auftraege) {
+            System.out.println(a.toString());
+        } return "";
     }
 }
