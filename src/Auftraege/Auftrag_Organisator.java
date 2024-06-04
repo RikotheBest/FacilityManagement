@@ -25,7 +25,14 @@ public class Auftrag_Organisator {
         Collections.sort(auftraege,nachDatum);
     }
     public void add(Datum geplant, int nummer, String kategorie, boolean status){
-        auftraege.add(new Auftrag(geplant, nummer, kategorie, status));
+        boolean existiert = false;
+        for(Auftrag a : auftraege){
+            if(a.getNummer() == nummer) existiert = true;
+        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
+        else auftraege.add(new Auftrag(geplant,nummer,kategorie,status));
+    }
+    public void delete(Auftrag auftrag){
+        auftraege.remove(auftrag);
     }
 
     public ArrayList<Auftrag> getAuftraege() {

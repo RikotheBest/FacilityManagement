@@ -5,18 +5,28 @@ import Auftraege.Auftrag_Organisator;
 
 public abstract class Ausstattung {
 	private String name;
-	int preis;
-	String ort;
-	Auftrag_Organisator auftraege;
+	private int preis;
+	private String ort;
+	private int nummer;
+	private Auftrag_Organisator auftraege;
 
-	public Ausstattung(String name, int preis, String ort, Auftrag_Organisator auftraege) {
+	public Ausstattung(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
 		this.name = name;
 		this.preis = preis;
 		this.ort = ort;
 		this.auftraege = auftraege;
+		this.nummer = nummer;
 	}
 
 	public Ausstattung() {
+	}
+
+	public int getNummer() {
+		return nummer;
+	}
+
+	public void setNummer(int nummer) {
+		this.nummer = nummer;
 	}
 
 	public String getName() {
