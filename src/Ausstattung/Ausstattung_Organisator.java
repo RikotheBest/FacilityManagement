@@ -3,9 +3,9 @@ package Ausstattung;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Brandschutz.Feuerloescher;
 import Ausstattung.Brandschutz.Rauchmelder;
-import Ausstattung.Moebel.Fenster;
+import Ausstattung.Moebel.Sitzmöbel;
 import Ausstattung.Moebel.Tisch;
-import Ausstattung.Moebel.Tuer;
+import Ausstattung.Moebel.Schrank;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class Ausstattung_Organisator {
         for(Ausstattung a : austattungList){
             if(a.getNummer() == nummer) existiert = true;
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Fenster(name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Sitzmöbel(name, preis,ort,auftraege, nummer));
     }
     public void addTisch(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
@@ -49,7 +49,7 @@ public class Ausstattung_Organisator {
         for(Ausstattung a : austattungList){
             if(a.getNummer() == nummer) existiert = true;
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Tuer(name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Schrank(name, preis,ort,auftraege, nummer));
     }
     public void delete(Ausstattung a){
         austattungList.remove(a);
