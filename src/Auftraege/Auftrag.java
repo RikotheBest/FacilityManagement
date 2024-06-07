@@ -6,9 +6,9 @@ public class Auftrag {
     private Datum geplant;
     private int nummer;
     private String kategorie;
-    private boolean status;
+    private String status;
 
-    public Auftrag(Datum geplant, int nummer, String kategorie, boolean status) {
+    public Auftrag(Datum geplant, int nummer, String kategorie, String status) {
         this.geplant = geplant;
         this.nummer = nummer;
         this.kategorie = kategorie;
@@ -39,11 +39,11 @@ public class Auftrag {
         this.kategorie = kategorie;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

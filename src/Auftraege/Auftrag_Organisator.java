@@ -24,7 +24,7 @@ public class Auftrag_Organisator {
     public void sort(){
         Collections.sort(auftraege,nachDatum);
     }
-    public void add(Datum geplant, int nummer, String kategorie, boolean status){
+    public void add(Datum geplant, int nummer, String kategorie, String status){
         boolean existiert = false;
         for(Auftrag a : auftraege){
             if(a.getNummer() == nummer) existiert = true;
