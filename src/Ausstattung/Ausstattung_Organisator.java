@@ -62,20 +62,28 @@ public class Ausstattung_Organisator {
     public ArrayList<Auftrag> getAuftragsListe(int i){
         return austattungList.get(i).getAuftraege().getAuftraege();
     }
-    public void speichernAuftraege(int i) throws SQLException {
+    public void speichernAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
+        int i = 0;
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\riyad\\OneDrive\\Рабочий стол\\sqlite-tools\\FacilityManagement.db");
+
+        Connection con = DriverManager.getConnection("jdbc:sqlite:C:FacilityManagement.db");
         String speichernSQL = "INSERT INTO Auftrag(AuftragID, Datum, Kategorie, Status, AusstattungID) VALUES(?,?,?,?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
-        for(Auftrag a : getAuftragsListe(i) ) {
+
+
+        for (Ausstattung as : austattungList) {
+            for (Auftrag a : getAuftragsListe(i)) {
             statement.setString(1, a.getNummer() + "");
             statement.setString(2, a.getGeplant().toString());
             statement.setString(3, a.getKategorie());
-            statement.setString(4,a.getStatus());
+            statement.setString(4, a.getStatus());
             statement.setString(5, austattungList.get(i).getNummer() + "");
             statement.executeUpdate();
 
         }
+            i++;
+    }
+
         statement.close();
         con.close();
 
