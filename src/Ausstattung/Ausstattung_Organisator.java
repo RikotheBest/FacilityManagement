@@ -32,8 +32,7 @@ public class Ausstattung_Organisator {
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
         else austattungList.add(new Rauchmelder(name, preis,ort,auftraege, nummer));
     }
-
-
+    
     public void addSitzmoebel(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
@@ -63,13 +62,21 @@ public class Ausstattung_Organisator {
         return austattungList.get(i).getAuftraege().getAuftraege();
     }
     public void speichernAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
-        int i = 0;
 
 
         Connection con = DriverManager.getConnection("jdbc:sqlite:C:FacilityManagement.db");
+        String loeschenSQL = "DELETE FROM Auftrag";
+        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
+        statement2.executeUpdate();
+        statement2.close();
+
+
+
+
         String speichernSQL = "INSERT INTO Auftrag(AuftragID, Datum, Kategorie, Status, AusstattungID) VALUES(?,?,?,?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
 
+        int i = 0;
 
         for (Ausstattung as : austattungList) {
             for (Auftrag a : getAuftragsListe(i)) {

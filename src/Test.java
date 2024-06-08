@@ -20,7 +20,6 @@ public class Test {
         Auftrag_Organisator auftragsListe2 = new Auftrag_Organisator();
         auftragsListe2.add(new Datum(),100,"Wartung", "in Bearbeitung");
         auftragsListe2.add(new Datum(23,12,2001),101,"Wartung", "in Bearbeitung");
-        auftragsListe2.add(new Datum(),102,"Wartung", "in Bearbeitung");
 
 
         ausstattungsListe.addFeuerloescher("feuerloescher", 12, "flur", auftragsListe,2);
