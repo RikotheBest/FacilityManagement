@@ -6,10 +6,7 @@ import Ausstattung.Brandschutz.*;
 import Ausstattung.Moebel.*;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Ausstattung_Organisator {
@@ -32,7 +29,7 @@ public class Ausstattung_Organisator {
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
         else austattungList.add(new Rauchmelder(name, preis,ort,auftraege, nummer));
     }
-    
+
     public void addSitzmoebel(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
@@ -64,13 +61,11 @@ public class Ausstattung_Organisator {
     public void speichernAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
 
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:C:FacilityManagement.db");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:FacilityManagement.db");
         String loeschenSQL = "DELETE FROM Auftrag";
         PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
         statement2.executeUpdate();
         statement2.close();
-
-
 
 
         String speichernSQL = "INSERT INTO Auftrag(AuftragID, Datum, Kategorie, Status, AusstattungID) VALUES(?,?,?,?,?)";
@@ -93,7 +88,19 @@ public class Ausstattung_Organisator {
 
         statement.close();
         con.close();
+    }
 
-
+    public void upload() throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:sqlite:FacilityManagement.db");
+        String uploadSQL = "SELECT * FROM Auftrag";
+        PreparedStatement statement = con.prepareStatement(uploadSQL);
+        ResultSet result = statement.executeQuery(uploadSQL);
+        int id = result.getInt("AusstattungID");
+        int i = 0;
+        while (result.next()){
+            if(id == result.getInt("AusstattungID")){
+                getAuftragsListe(i)
+            }
+        }
     }
 }
