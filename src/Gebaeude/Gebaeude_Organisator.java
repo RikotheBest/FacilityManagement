@@ -4,12 +4,21 @@ import Attribute.Adresse;
 import Attribute.Datum;
 import Attribute.Groesse;
 import Auftraege.Auftrag;
+import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Gebaeude_Organisator {
     ArrayList<Gebaeude> gebaeudeListe;
+    private final String AUSSTATTUNGID = "AusstattungID";
+    private final String GEBAEUDEID = "GebaeudeID";
+    private final String ORT = "Ort";
+    private final String PREIS = "Preis";
+    private final String NAME = "Name";
+    private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
+
 
     public Gebaeude_Organisator() {
         gebaeudeListe = new ArrayList<Gebaeude>();
@@ -24,5 +33,52 @@ public class Gebaeude_Organisator {
     public void delete(Gebaeude g){
         gebaeudeListe.remove(g);
     }
+    public ArrayList<Ausstattung> getAusstattungsListe(int i){
+        return gebaeudeListe.get(i).getAustattung().getAustattungList();
+    }
 
+    public void speichereAusstattung()throws SQLException {
+        Connection con = DriverManager.getConnection(URL);
+        String loeschenSQL = "DELETE FROM Ausstattug";
+        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
+        statement2.executeUpdate();
+        statement2.close();
+
+
+        String speichernSQL = "INSERT INTO Auftrag (" + AUSSTATTUNGID +", " + GEBAEUDEID + ", " + ORT +  ", " + PREIS + ", " + NAME + ") VALUES(?,?,?,?,?)";
+        PreparedStatement statement = con.prepareStatement(speichernSQL);
+
+        int i = 0;
+
+        for (Gebaeude g : gebaeudeListe) {
+            for (Ausstattung a : getAusstattungsListe(i)) {
+                statement.setString(1, a.getNummer() + "");
+                statement.setString(2, gebaeudeListe.get(i).getNummer() + "");
+                statement.setString(3, a.getOrt());
+                statement.setString(4, a.getPreis() + "");
+                statement.setString(5, a.getName());
+                statement.executeUpdate();
+
+            }
+            i++;
+        }
+
+        statement.close();
+        con.close();
+    }
+    public void upload() throws SQLException {
+        Connection con = DriverManager.getConnection(URL);
+        String uploadSQL = "SELECT * FROM Ausstattung";
+        Statement statement = con.createStatement();
+        ResultSet result = statement.executeQuery(uploadSQL);
+
+        while (result.next()){
+            int i = result.getInt(AUSSTATTUNGID);
+            for(Ausstattung a : austattungList){
+                if(a.getNummer() == i){
+                    a.getAuftraege().add(new Datum(result.getString(DATUM)), result.getInt(AUFTRAGID), result.getString(KATEGORIE), result.getString(STATUS));
+                }
+            }
+        }
+    }
 }

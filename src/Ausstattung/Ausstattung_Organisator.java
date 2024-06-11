@@ -86,7 +86,7 @@ public class Ausstattung_Organisator {
     public ArrayList<Auftrag> getAuftragsListe(int i){
         return austattungList.get(i).getAuftraege().getAuftraege();
     }
-    public void speichernAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
+    public void speichereAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
 
 
         Connection con = DriverManager.getConnection(URL);
