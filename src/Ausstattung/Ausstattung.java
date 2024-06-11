@@ -10,8 +10,8 @@ public abstract class Ausstattung {
 	private int nummer;
 	private Auftrag_Organisator auftraege;
 
-	public Ausstattung(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
-		this.name = name;
+	public Ausstattung(int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
+
 		this.preis = preis;
 		this.ort = ort;
 		this.auftraege = auftraege;
@@ -21,21 +21,19 @@ public abstract class Ausstattung {
 	public Ausstattung() {
 	}
 
+
 	public int getNummer() {
 		return nummer;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setNummer(int nummer) {
 		this.nummer = nummer;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public int getPreis() {
 		return preis;
@@ -59,5 +57,18 @@ public abstract class Ausstattung {
 
 	public void setAuftraege(Auftrag_Organisator auftraege) {
 		this.auftraege = auftraege;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String toString() {
+		return "Ausstattung{" +
+				"name='" + name + '\'' +
+				", preis=" + preis +
+				", ort='" + ort + '\'' +
+				", nummer=" + nummer +
+				'}';
 	}
 }

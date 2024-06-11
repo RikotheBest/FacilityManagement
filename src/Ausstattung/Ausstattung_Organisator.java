@@ -23,7 +23,7 @@ public class Ausstattung_Organisator {
     public Ausstattung_Organisator() {
         austattungList = new ArrayList<>();
     }
-    public void addFeuerloescher(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
+    public void addFeuerloescher(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
             if (a.getNummer() == nummer) {
@@ -31,9 +31,9 @@ public class Ausstattung_Organisator {
                 break;
             }
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Feuerloescher(name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Feuerloescher(preis,ort,auftraege, nummer));
     }
-    public void addRauchmelder(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
+    public void addRauchmelder( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
             if (a.getNummer() == nummer) {
@@ -41,10 +41,10 @@ public class Ausstattung_Organisator {
                 break;
             }
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Rauchmelder(name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Rauchmelder(preis,ort,auftraege, nummer));
     }
 
-    public void addSitzmoebel(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
+    public void addSitzmoebel(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
             if (a.getNummer() == nummer) {
@@ -52,9 +52,9 @@ public class Ausstattung_Organisator {
                 break;
             }
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Sitzmoebel (name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Sitzmoebel (preis,ort,auftraege, nummer));
     }
-    public void addTisch(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
+    public void addTisch( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
             if (a.getNummer() == nummer) {
@@ -62,9 +62,9 @@ public class Ausstattung_Organisator {
                 break;
             }
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Tisch(name, preis,ort,auftraege, nummer));
+        else austattungList.add(new Tisch(preis,ort,auftraege, nummer));
     }
-    public void addSchrank(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer){
+    public void addSchrank(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
         boolean existiert = false;
         for(Ausstattung a : austattungList){
             if (a.getNummer() == nummer) {
@@ -72,7 +72,7 @@ public class Ausstattung_Organisator {
                 break;
             }
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Schrank(name, preis, ort, auftraege, nummer));
+        else austattungList.add(new Schrank(preis, ort, auftraege, nummer));
     }
 
     public ArrayList<Ausstattung> getAustattungList() {
@@ -132,5 +132,13 @@ public class Ausstattung_Organisator {
                 }
             }
         }
+        statement.close();
+        con.close();
+    }
+    public String toString(){
+        for(Ausstattung a : austattungList){
+            a.toString();
+        }
+        return "";
     }
 }

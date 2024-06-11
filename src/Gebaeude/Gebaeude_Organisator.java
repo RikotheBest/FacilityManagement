@@ -4,6 +4,7 @@ import Attribute.Adresse;
 import Attribute.Datum;
 import Attribute.Groesse;
 import Auftraege.Auftrag;
+import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
 
@@ -73,12 +74,27 @@ public class Gebaeude_Organisator {
         ResultSet result = statement.executeQuery(uploadSQL);
 
         while (result.next()){
-            int i = result.getInt(AUSSTATTUNGID);
-            for(Ausstattung a : austattungList){
-                if(a.getNummer() == i){
-                    a.getAuftraege().add(new Datum(result.getString(DATUM)), result.getInt(AUFTRAGID), result.getString(KATEGORIE), result.getString(STATUS));
+            int i = result.getInt(GEBAEUDEID);
+            String n = result.getString(NAME);
+            for(Gebaeude g : gebaeudeListe){
+                if(g.getNummer() == i){
+                   switch (n){
+                       case "Rauchmelder": g.getAustattung().addRauchmelder(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                       break;
+                       case "Feuerloescher": g.getAustattung().addFeuerloescher(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                       break;
+                       case "Tisch": g.getAustattung().addTisch(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                       break;
+                       case "Sitzmoebel": g.getAustattung().addSitzmoebel(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                       break;
+                       case "Schrank": g.getAustattung().addSchrank(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                       break;
+                   }
+
                 }
             }
         }
+        statement.close();
+        con.close();
     }
 }

@@ -43,10 +43,10 @@ public class Auftrag_Organisator {
         this.auftraege = auftraege;
     }
 
-    @Override
+
     public String toString() {
         for (Auftrag a :auftraege) {
-            System.out.println(a.toString());
+            a.toString();
         } return "";
     }
 }

@@ -4,9 +4,10 @@ import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 
 public class Tisch extends Ausstattung {
-    public Tisch(String name, int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
-        super(name, preis, ort, auftraege, nummer);
+    public Tisch(int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
+        super(preis, ort, auftraege, nummer);
+        super.setName("Tisch");
     }
-    public Tisch() {
-    }
+
+
 }

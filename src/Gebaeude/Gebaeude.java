@@ -18,11 +18,7 @@ public class Gebaeude {
         this.austattung = austattung;
     }
 
-    public Gebaeude(int nummer, Groesse groesse, Adresse adresse) {
-        this.nummer = nummer;
-        this.groesse = groesse;
-        this.adresse = adresse;
-    }
+
 
 
     public int getNummer() {
