@@ -10,5 +10,14 @@
     <orderEntry type="library" name="sqlite-jdbc-3.46.0.0 (1)" level="project" />
     <orderEntry type="library" name="slf4j-api-1.7.36" level="project" />
     <orderEntry type="library" name="slf4j-simple-1.7.36" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/Gson/gson-2.11.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

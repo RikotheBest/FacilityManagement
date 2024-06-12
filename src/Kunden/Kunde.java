@@ -7,6 +7,7 @@ import Gebaeude.Gebaeude_Organisator;
  * Gebäudeorganisator. Sie bietet Methoden zum Abrufen und Setzen dieser Attribute.
  */
 public class Kunde {
+    private int nummer;
     private String name;
     private Gebaeude_Organisator gebaeude;
 
@@ -16,9 +17,18 @@ public class Kunde {
      * @param name Der Name des Kunden.
      * @param gebaeude Der Gebäudeorganisator des Kunden.
      */
-    public Kunde(String name, Gebaeude_Organisator gebaeude) {
+    public Kunde(String name, Gebaeude_Organisator gebaeude, int nummer) {
         this.name = name;
         this.gebaeude = gebaeude;
+        this.nummer = nummer;
+    }
+
+    public int getNummer() {
+        return nummer;
+    }
+
+    public void setNummer(int nummer) {
+        this.nummer = nummer;
     }
 
     public String getName() {return name;}

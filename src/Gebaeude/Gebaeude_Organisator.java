@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * von Gebäuden und deren Ausstattung.
  */
 public class Gebaeude_Organisator {
-    ArrayList<Gebaeude> gebaeudeListe; // Liste der Gebäude
+    private ArrayList<Gebaeude> gebaeudeListe; // Liste der Gebäude
     private final String AUSSTATTUNGID = "AusstattungID";
     private final String GEBAEUDEID = "GebaeudeID";
     private final String ORT = "Ort";
@@ -29,6 +29,11 @@ public class Gebaeude_Organisator {
     public Gebaeude_Organisator() {
         gebaeudeListe = new ArrayList<Gebaeude>();
     }
+
+    public ArrayList<Gebaeude> getGebaeudeListe() {
+        return gebaeudeListe;
+    }
+
     /**
      * Fügt ein neues Gebäude zur Liste hinzu, falls die Nummer noch nicht existiert.
      *
@@ -37,6 +42,7 @@ public class Gebaeude_Organisator {
      * @param adresse Die Adresse des Gebäudes.
      * @param ausstattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
      */
+
     public void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
         boolean existiert = false;
         for(Gebaeude a : gebaeudeListe){
@@ -71,13 +77,13 @@ public class Gebaeude_Organisator {
      */
     public void speichereAusstattung()throws SQLException {
         Connection con = DriverManager.getConnection(URL);
-        String loeschenSQL = "DELETE FROM Ausstattug";
+        String loeschenSQL = "DELETE FROM Ausstattung";
         PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
         statement2.executeUpdate();
         statement2.close();
 
 
-        String speichernSQL = "INSERT INTO Auftrag (" + AUSSTATTUNGID +", " + GEBAEUDEID + ", " + ORT +  ", " + PREIS + ", " + NAME + ") VALUES(?,?,?,?,?)";
+        String speichernSQL = "INSERT INTO Ausstattung (" + AUSSTATTUNGID +", " + GEBAEUDEID + ", " + ORT +  ", " + PREIS + ", " + NAME + ") VALUES(?,?,?,?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
 
         int i = 0;

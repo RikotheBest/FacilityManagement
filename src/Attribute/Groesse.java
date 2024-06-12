@@ -5,7 +5,7 @@ package Attribute;
  * die Schnittstelle Comparable, um eine Vergleichsmethode basierend
  * auf der Fläche zu ermöglichen.
  */
-public class Groesse implements Comparable<Groesse>{
+public class Groesse{
     private int stockwerke;
     private double flaeche;
     private double raeume;
@@ -24,17 +24,6 @@ public class Groesse implements Comparable<Groesse>{
         this.raeume = raeume;
     }
 
-    /**
-     * Vergleicht dieses Groesse-Objekt mit einem anderen Groesse-Objekt
-     * basierend auf der Fläche.
-     *
-     * @param o Das andere Groesse-Objekt zum Vergleich.
-     * @return -1 wenn dieses Objekt eine kleinere Fläche hat, sonst 1.
-     */
-    public int compareTo(Groesse o) {
-        if(this.flaeche < o.flaeche) return -1;
-        else return 1;
-    }
 
     public int getStockwerke() {
         return stockwerke;
