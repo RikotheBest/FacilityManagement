@@ -167,11 +167,11 @@ public class Ausstattung_Organisator {
 
         for (Ausstattung as : austattungList) {
             for (Auftrag a : getAuftragsListe(i)) {
-            statement.setString(1, a.getNummer() + "");
+            statement.setInt(1, a.getNummer());
             statement.setString(2, a.getGeplant().toString());
             statement.setString(3, a.getKategorie());
             statement.setString(4, a.getStatus());
-            statement.setString(5, austattungList.get(i).getNummer() + "");
+            statement.setInt(5, austattungList.get(i).getNummer());
             statement.executeUpdate();
 
         }

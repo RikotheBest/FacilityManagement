@@ -90,10 +90,10 @@ public class Gebaeude_Organisator {
 
         for (Gebaeude g : gebaeudeListe) {
             for (Ausstattung a : getAusstattungsListe(i)) {
-                statement.setString(1, a.getNummer() + "");
-                statement.setString(2, gebaeudeListe.get(i).getNummer() + "");
+                statement.setInt(1, a.getNummer());
+                statement.setInt(2, gebaeudeListe.get(i).getNummer());
                 statement.setString(3, a.getOrt());
-                statement.setString(4, a.getPreis() + "");
+                statement.setInt(4, a.getPreis());
                 statement.setString(5, a.getName());
                 statement.executeUpdate();
 
