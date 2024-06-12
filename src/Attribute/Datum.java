@@ -4,8 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+/**
+ * Die Klasse Datum repräsentiert ein Datum und bietet verschiedene
+ * Konstruktoren und Methoden zum Abrufen und Setzen des Datums.
+ */
 public class Datum {
-
+/**
+ * Konstruktor zum Initialisieren eines Datums mit Tag, Monat und Jahr.
+ *
+ * @param tag Der Tag des Datums.
+ * @param monat Der Monat des Datums.
+ * @param jahr Das Jahr des Datums.
+ */
     private LocalDate date;
 
     public Datum(int tag, int monat, int jahr) {

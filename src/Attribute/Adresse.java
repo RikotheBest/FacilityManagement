@@ -1,10 +1,20 @@
 package Attribute;
-
+/**
+ * Die Klasse Adresse repräsentiert eine physische Adresse mit
+ * den Attributen Straße, Postleitzahl und Land. Sie bietet Methoden
+ * zum Abrufen und Ändern dieser Attribute.
+ */
 public class Adresse {
     private String strasse;
     private int post;
     private String land;
-
+    /**
+     *Konstruktor zum Initialisieren eines Datums mit Tag, Monat und Jahr.
+     *
+     * @param strasse Die Straße der Adresse.
+     * @param post Die Postleitzahl der Adresse.
+     * @param land Das Land der Adresse.
+     */
     public Adresse(String strasse, int post, String land) {
         this.strasse = strasse;
         this.post = post;

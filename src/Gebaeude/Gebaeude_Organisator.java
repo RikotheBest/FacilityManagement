@@ -11,8 +11,13 @@ import Ausstattung.Ausstattung_Organisator;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Die Klasse Gebaeude_Organisator verwaltet eine Liste von Gebäuden
+ * und bietet Methoden zum Hinzufügen, Löschen, Speichern und Hochladen
+ * von Gebäuden und deren Ausstattung.
+ */
 public class Gebaeude_Organisator {
-    ArrayList<Gebaeude> gebaeudeListe;
+    ArrayList<Gebaeude> gebaeudeListe; // Liste der Gebäude
     private final String AUSSTATTUNGID = "AusstattungID";
     private final String GEBAEUDEID = "GebaeudeID";
     private final String ORT = "Ort";
@@ -24,6 +29,14 @@ public class Gebaeude_Organisator {
     public Gebaeude_Organisator() {
         gebaeudeListe = new ArrayList<Gebaeude>();
     }
+    /**
+     * Fügt ein neues Gebäude zur Liste hinzu, falls die Nummer noch nicht existiert.
+     *
+     * @param nummer Die Nummer des Gebäudes.
+     * @param groesse Die Größe des Gebäudes.
+     * @param adresse Die Adresse des Gebäudes.
+     * @param ausstattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
+     */
     public void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
         boolean existiert = false;
         for(Gebaeude a : gebaeudeListe){
@@ -31,13 +44,31 @@ public class Gebaeude_Organisator {
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
         else gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
     }
+
+    /**
+     * Entfernt ein Gebäude aus der Liste.
+     *
+     * @param g Das zu entfernende Gebäude.
+     */
     public void delete(Gebaeude g){
         gebaeudeListe.remove(g);
     }
+
+    /**
+     * Gibt die Liste der Ausstattungen eines bestimmten Gebäudes zurück.
+     *
+     * @param i Der Index des Gebäudes in der Liste.
+     * @return Die Liste der Ausstattungen des angegebenen Gebäudes.
+     */
     public ArrayList<Ausstattung> getAusstattungsListe(int i){
         return gebaeudeListe.get(i).getAustattung().getAustattungList();
     }
 
+    /**
+     * Speichert alle Ausstattungen von allen Gebäuden in der Datenbank.
+     *
+     * @throws SQLException Wenn ein SQL-Fehler auftritt.
+     */
     public void speichereAusstattung()throws SQLException {
         Connection con = DriverManager.getConnection(URL);
         String loeschenSQL = "DELETE FROM Ausstattug";
@@ -66,6 +97,12 @@ public class Gebaeude_Organisator {
 
         statement.close();
         con.close();
+
+        /**
+         * Lädt alle Ausstattungen aus der Datenbank und fügt sie den entsprechenden Gebäuden hinzu.
+         *
+         * @throws SQLException Wenn ein SQL-Fehler auftritt.
+         */
     }
     public void upload() throws SQLException {
         Connection con = DriverManager.getConnection(URL);

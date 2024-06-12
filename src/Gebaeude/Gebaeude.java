@@ -3,14 +3,26 @@ package Gebaeude;
 import Attribute.Adresse;
 import Attribute.Groesse;
 import Ausstattung.Ausstattung_Organisator;
-
-
+/**
+ * Die Klasse Gebaeude repräsentiert ein Gebäude mit den Attributen Nummer,
+ * Groesse, Adresse und Ausstattung. Sie bietet Methoden zum Abrufen und
+ * Setzen dieser Attribute.
+ */
 public class Gebaeude {
     private int nummer;
     private Groesse groesse;
     private Adresse adresse;
     private Ausstattung_Organisator austattung;
 
+    /**
+     * Konstruktor zum Initialisieren eines Gebäudes mit den angegebenen
+     * Nummer, Groesse, Adresse und Ausstattung_Organisator.
+     *
+     * @param nummer Die Nummer des Gebäudes.
+     * @param groesse Die Größe des Gebäudes.
+     * @param adresse Die Adresse des Gebäudes.
+     * @param austattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
+     */
     public Gebaeude(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator austattung) {
         this.nummer = nummer;
         this.groesse = groesse;
@@ -18,40 +30,21 @@ public class Gebaeude {
         this.austattung = austattung;
     }
 
+    public int getNummer() {return nummer;}
 
+    public void setNummer(int nummer) {this.nummer = nummer;}
 
+    public Groesse getGroesse() {return groesse;}
 
-    public int getNummer() {
-        return nummer;
-    }
+    public void setGroesse(Groesse groesse) {this.groesse = groesse;}
 
-    public void setNummer(int nummer) {
-        this.nummer = nummer;
-    }
+    public Adresse getAdresse() {return adresse;}
 
-    public Groesse getGroesse() {
-        return groesse;
-    }
+    public void setAdresse(Adresse adresse) {this.adresse = adresse;}
 
-    public void setGroesse(Groesse groesse) {
-        this.groesse = groesse;
-    }
+    public Ausstattung_Organisator getAustattung() {return austattung;}
 
-    public Adresse getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
-    }
-
-    public Ausstattung_Organisator getAustattung() {
-        return austattung;
-    }
-
-    public void setAustattung(Ausstattung_Organisator austattung) {
-        this.austattung = austattung;
-    }
+    public void setAustattung(Ausstattung_Organisator austattung) {this.austattung = austattung;}
 }
 
 
