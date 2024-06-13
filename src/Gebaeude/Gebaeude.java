@@ -45,6 +45,15 @@ public class Gebaeude {
     public Ausstattung_Organisator getAustattung() {return austattung;}
 
     public void setAustattung(Ausstattung_Organisator austattung) {this.austattung = austattung;}
+
+    @Override
+    public String toString() {
+        return "Gebaeude{" +
+                "nummer=" + nummer +
+                ", groesse=" + groesse.toString() +
+                ", adresse=" + adresse.toString() +
+                '}';
+    }
 }
 
 

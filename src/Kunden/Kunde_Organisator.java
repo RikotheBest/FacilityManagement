@@ -20,12 +20,17 @@ public class Kunde_Organisator {
     private final String ADRESSE = "Adresse";
     private final String GROESSE = "Groesse";
     private final String KUNDEID = "KundeID";
+    private final String NAME = "Name";
     private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
 
     private ArrayList<Kunde> kundenListe; // Liste der Kunden
 
     public Kunde_Organisator() {
         kundenListe = new ArrayList<>();
+    }
+
+    public ArrayList<Kunde> getKundenListe() {
+        return kundenListe;
     }
 
     /**
@@ -67,7 +72,7 @@ public class Kunde_Organisator {
         return kundenListe.get(i).getGebaeude().getGebaeudeListe();
     }
 
-    public void speichereAusstattung()throws SQLException {
+    public void speichereGebaeude()throws SQLException {
         Connection con = DriverManager.getConnection(URL);
         String loeschenSQL = "DELETE FROM Gebaeude";
         PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
@@ -97,7 +102,7 @@ public class Kunde_Organisator {
 
 
     }
-    public void upload() throws SQLException {
+    public void uploadGebaeude() throws SQLException {
         Connection con = DriverManager.getConnection(URL);
         String uploadSQL = "SELECT * FROM Gebaeude";
         Statement statement = con.createStatement();
@@ -109,9 +114,45 @@ public class Kunde_Organisator {
             int i = result.getInt(KUNDEID);
             for(Kunde k : kundenListe){
                 if(k.getNummer() == i){
-                    k.getGebaeude().add(result.getInt(GEBAEUDEID), gson.fromJson(result.getString(GROESSE), Groesse.class), gson.fromJson(result.getString(ADRESSE), Adresse.class), new Ausstattung_Organisator());
+                    k.getGebaeude().add(result.getInt(GEBAEUDEID), gson.fromJson(result.getString(GROESSE), Groesse.class),
+                            gson.fromJson(result.getString(ADRESSE), Adresse.class), new Ausstattung_Organisator());
                 }
             }
+        }
+        statement.close();
+        con.close();
+    }
+    public void speichern()throws SQLException{
+        Connection con = DriverManager.getConnection(URL);
+        String loeschenSQL = "DELETE FROM Kunden";
+        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
+        statement2.executeUpdate();
+        statement2.close();
+
+
+        String speichernSQL = "INSERT INTO Kunden (" + KUNDEID +", " + NAME +  ") VALUES(?,?)";
+        PreparedStatement statement = con.prepareStatement(speichernSQL);
+        Gson gson = new Gson();
+
+
+        for (Kunde k : kundenListe) {
+                statement.setInt(1, k.getNummer());
+                statement.setString(2, k.getName());
+                statement.executeUpdate();
+        }
+
+        statement.close();
+        con.close();
+    }
+    public void upload() throws SQLException {
+        Connection con = DriverManager.getConnection(URL);
+        String uploadSQL = "SELECT * FROM Kunden";
+        Statement statement = con.createStatement();
+        ResultSet result = statement.executeQuery(uploadSQL);
+        Kunde_Organisator k = new Kunde_Organisator();
+
+        while (result.next()){
+                 k.add(result.getString(NAME), new Gebaeude_Organisator(),result.getInt(KUNDEID));
         }
         statement.close();
         con.close();

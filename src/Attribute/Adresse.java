@@ -44,4 +44,13 @@ public class Adresse {
     public void setLand(String land) {
         this.land = land;
     }
+
+    @Override
+    public String toString() {
+        return "Adresse{" +
+                "strasse='" + strasse + '\'' +
+                ", post=" + post +
+                ", land='" + land + '\'' +
+                '}';
+    }
 }

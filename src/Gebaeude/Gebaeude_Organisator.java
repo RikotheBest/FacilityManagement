@@ -140,4 +140,10 @@ public class Gebaeude_Organisator {
         statement.close();
         con.close();
     }
+    public String toString(){
+        for (Gebaeude g:
+             gebaeudeListe) {
+            g.toString();
+        } return "";
+    }
 }

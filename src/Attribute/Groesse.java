@@ -48,4 +48,13 @@ public class Groesse{
     public void setRaeume(double raeume) {
         this.raeume = raeume;
     }
+
+    @Override
+    public String toString() {
+        return "Groesse{" +
+                "stockwerke=" + stockwerke +
+                ", flaeche=" + flaeche +
+                ", raeume=" + raeume +
+                '}';
+    }
 }
