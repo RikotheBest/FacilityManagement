@@ -18,7 +18,7 @@ public class Test extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("FacilityManagement");
-        stage.setScene(new Scene(root,300,275));
+        stage.setScene(new Scene(root,800,800));
         stage.show();
 
     }
