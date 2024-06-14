@@ -1,6 +1,7 @@
 package Kunden;
 
 import Gebaeude.Gebaeude_Organisator;
+import javafx.scene.control.TreeItem;
 
 /**
  * Die Klasse Kunde repräsentiert einen Kunden mit einem Namen und einem
