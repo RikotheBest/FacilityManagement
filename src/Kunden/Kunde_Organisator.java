@@ -6,6 +6,8 @@ import Ausstattung.Ausstattung_Organisator;
 import Gebaeude.Gebaeude;
 import Gebaeude.Gebaeude_Organisator;
 import com.google.gson.Gson;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,13 +25,13 @@ public class Kunde_Organisator {
     private final String NAME = "Name";
     private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
 
-    private ArrayList<Kunde> kundenListe; // Liste der Kunden
+    private ObservableList<Kunde> kundenListe; // Liste der Kunden
 
     public Kunde_Organisator() {
-        kundenListe = new ArrayList<>();
+        kundenListe = FXCollections.observableArrayList();
     }
 
-    public ArrayList<Kunde> getKundenListe() {
+    public ObservableList<Kunde> getKundenListe() {
         return kundenListe;
     }
 
@@ -68,7 +70,7 @@ public class Kunde_Organisator {
     public void sort(){
         Collections.sort(kundenListe, nachBuchstaben);
     }
-    public ArrayList<Gebaeude> getGebaeudeListe(int i){
+    public ObservableList<Gebaeude> getGebaeudeListe(int i){
         return kundenListe.get(i).getGebaeude().getGebaeudeListe();
     }
 

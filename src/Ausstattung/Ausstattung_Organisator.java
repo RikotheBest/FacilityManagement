@@ -5,6 +5,8 @@ import Auftraege.Auftrag;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Brandschutz.*;
 import Ausstattung.Moebel.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,11 +23,11 @@ public class Ausstattung_Organisator {
     private final String AUSSTATTUNGID = "AusstattungID";
     private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
 
-    private ArrayList<Ausstattung> austattungList; // Liste der Ausstattungen
+    private ObservableList<Ausstattung> austattungList; // Liste der Ausstattungen
 
     //Standardkonstruktor zum Initialisieren des Ausstattung_Organisators.
     public Ausstattung_Organisator() {
-        austattungList = new ArrayList<>();
+        austattungList = FXCollections.observableArrayList();
     }
 
     /**
@@ -124,7 +126,7 @@ public class Ausstattung_Organisator {
         else austattungList.add(new Schrank(preis, ort, auftraege, nummer));
     }
 
-    public ArrayList<Ausstattung> getAustattungList() {
+    public ObservableList<Ausstattung> getAustattungList() {
         return austattungList;
     }
 
@@ -143,7 +145,7 @@ public class Ausstattung_Organisator {
      * @param i Der Index der Ausstattung in der Liste.
      * @return Die Liste der Aufträge der angegebenen Ausstattung.
      */
-    public ArrayList<Auftrag> getAuftragsListe(int i){
+    public ObservableList<Auftrag> getAuftragsListe(int i){
         return austattungList.get(i).getAuftraege().getAuftraege();
     }
 

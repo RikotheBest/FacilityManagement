@@ -42,4 +42,8 @@ public class Controller implements Initializable {
             }
 
         }
+        public void selectTreeItem(){
+            TreeItem<String> item = treeView.getSelectionModel().getSelectedItem();
+            System.out.println(item.getValue());
+        }
     }

@@ -1,6 +1,8 @@
 package Auftraege;
 
 import Attribute.Datum;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +13,10 @@ import java.util.Comparator;
  * sowie zum Abrufen und Setzen der Auftragsliste.
  */
 public class Auftrag_Organisator {
-    ArrayList<Auftrag> auftraege; // Liste der Aufträge
+    ObservableList<Auftrag> auftraege; // Liste der Aufträge
 
     public Auftrag_Organisator() {
-        auftraege = new ArrayList<>();
+        auftraege = FXCollections.observableArrayList();
     }
     /**
      * Comparator zum Vergleichen von Aufträgen nach geplantem Datum.
@@ -30,7 +32,7 @@ public class Auftrag_Organisator {
      * Sortiert die Liste der Aufträge nach geplantem Datum.
      */
     public void sort(){
-        Collections.sort(auftraege,nachDatum);
+        FXCollections.sort(auftraege,nachDatum);
     }
     /**
      * Fügt einen neuen Auftrag zur Liste hinzu, falls die Nummer noch nicht existiert.
@@ -60,11 +62,11 @@ public class Auftrag_Organisator {
      *
      * @return Die Liste der Aufträge.
      */
-    public ArrayList<Auftrag> getAuftraege() {
+    public ObservableList<Auftrag> getAuftraege() {
         return auftraege;
     }
 
-    public void setAuftraege(ArrayList<Auftrag> auftraege) {
+    public void setAuftraege(ObservableList<Auftrag> auftraege) {
         this.auftraege = auftraege;
     }
 

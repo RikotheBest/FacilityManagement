@@ -1,12 +1,12 @@
 package Gebaeude;
 
 import Attribute.Adresse;
-import Attribute.Datum;
 import Attribute.Groesse;
-import Auftraege.Auftrag;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * von Gebäuden und deren Ausstattung.
  */
 public class Gebaeude_Organisator {
-    private ArrayList<Gebaeude> gebaeudeListe; // Liste der Gebäude
+    private ObservableList<Gebaeude> gebaeudeListe; // Liste der Gebäude
     private final String AUSSTATTUNGID = "AusstattungID";
     private final String GEBAEUDEID = "GebaeudeID";
     private final String ORT = "Ort";
@@ -27,10 +27,10 @@ public class Gebaeude_Organisator {
 
 
     public Gebaeude_Organisator() {
-        gebaeudeListe = new ArrayList<Gebaeude>();
+        gebaeudeListe = FXCollections.observableArrayList();
     }
 
-    public ArrayList<Gebaeude> getGebaeudeListe() {
+    public ObservableList<Gebaeude> getGebaeudeListe() {
         return gebaeudeListe;
     }
 
@@ -66,7 +66,7 @@ public class Gebaeude_Organisator {
      * @param i Der Index des Gebäudes in der Liste.
      * @return Die Liste der Ausstattungen des angegebenen Gebäudes.
      */
-    public ArrayList<Ausstattung> getAusstattungsListe(int i){
+    public ObservableList<Ausstattung> getAusstattungsListe(int i){
         return gebaeudeListe.get(i).getAustattung().getAustattungList();
     }
 
