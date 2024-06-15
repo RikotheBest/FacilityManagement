@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     @FXML
     private TreeView<Object> treeView;
+
     @FXML
     private TableView<Ausstattung> tableAusstattung;
     @FXML
@@ -52,26 +53,27 @@ public class Controller implements Initializable {
         }
 
         TreeItem<Object> root = new TreeItem<>("root");
-            treeView.setRoot((root));
-            treeView.setShowRoot(false);
-            int i = 0;
-            for(Kunde k : kunden.getKundenListe()){
-                root.getChildren().add(new TreeItem<>(k));
-                for (Gebaeude g : kunden.getGebaeudeListe(i)){
-                    root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
-                }
-                i++;
+        treeView.setRoot((root));
+        treeView.setShowRoot(false);
+        int i = 0;
+        for(Kunde k : kunden.getKundenListe()){
+            root.getChildren().add(new TreeItem<>(k));
+            for (Gebaeude g : kunden.getGebaeudeListe(i)){
+                root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
             }
-
-
-
+            i++;
         }
-        public void selectGebaeude(){
-            Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
-            ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
-            ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
-            ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
-            ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
-            tableAusstattung.setItems(g.getAustattung().getAustattungList());
-        }
+
+
+
     }
+    public void selectGebaeude(){
+
+        Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
+        ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
+        ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
+        ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
+        ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
+        tableAusstattung.setItems(g.getAustattung().getAustattungList());
+    }
+}
