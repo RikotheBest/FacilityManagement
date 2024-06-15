@@ -48,11 +48,7 @@ public class Gebaeude {
 
     @Override
     public String toString() {
-        return "Gebaeude{" +
-                "nummer=" + nummer +
-                ", groesse=" + groesse.toString() +
-                ", adresse=" + adresse.toString() +
-                '}';
+        return "Gebaeude: " + nummer;
     }
 }
 

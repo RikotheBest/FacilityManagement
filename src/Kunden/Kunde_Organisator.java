@@ -58,18 +58,7 @@ public class Kunde_Organisator {
         kundenListe.remove(k);
     }
 
-    //Comparator zum Vergleichen von Kunden nach Namen.
-    Comparator<Kunde> nachBuchstaben  = new Comparator<Kunde>() {
-        @Override
-        public int compare(Kunde o1, Kunde o2) {
-            return o1.getName().compareTo(o2.getName());
-        }
-    };
 
-    //Sortiert die Liste der Kunden nach Namen in alphabetischer Reihenfolge.
-    public void sort(){
-        Collections.sort(kundenListe, nachBuchstaben);
-    }
     public ObservableList<Gebaeude> getGebaeudeListe(int i){
         return kundenListe.get(i).getGebaeude().getGebaeudeListe();
     }
@@ -151,10 +140,10 @@ public class Kunde_Organisator {
         String uploadSQL = "SELECT * FROM Kunden";
         Statement statement = con.createStatement();
         ResultSet result = statement.executeQuery(uploadSQL);
-        Kunde_Organisator k = new Kunde_Organisator();
+
 
         while (result.next()){
-                 k.add(result.getString(NAME), new Gebaeude_Organisator(),result.getInt(KUNDEID));
+                 kundenListe.add(new Kunde(result.getString(NAME), new Gebaeude_Organisator(),result.getInt(KUNDEID)));
         }
         statement.close();
         con.close();

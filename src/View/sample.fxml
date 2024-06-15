@@ -12,7 +12,7 @@
 
 <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2160.0" prefWidth="3840.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
    <children>
-      <VBox prefHeight="1333.0" prefWidth="305.0">
+      <VBox prefHeight="1333.0" prefWidth="391.0">
          <children>
             <MenuBar>
               <menus>
@@ -33,17 +33,18 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TreeView fx:id="treeView" onContextMenuRequested="#selectTreeItem" onMouseClicked="#selectTreeItem" prefHeight="1311.0" prefWidth="305.0" />
+            <TreeView fx:id="treeView" onContextMenuRequested="#selectGebaeude" onMouseClicked="#selectGebaeude" prefHeight="1309.0" prefWidth="391.0" />
          </children>
       </VBox>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1299.0" prefWidth="1681.0">
          <children>
-            <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="673.0" prefWidth="1681.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
+            <TableView fx:id="tableAusstattung" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="673.0" prefWidth="1593.0">
+               <columns>
+                  <TableColumn fx:id="ausstattungNummer" prefWidth="75.0" text="Nummer" />
+                  <TableColumn fx:id="ausstattungName" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="ausstattungOrt" prefWidth="75.0" text="Ort" />
+                  <TableColumn fx:id="ausstattungPreis" prefWidth="75.0" text="Preis" />
+               </columns></TableView>
             <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="607.0" prefWidth="1681.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />

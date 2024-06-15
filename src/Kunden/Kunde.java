@@ -24,6 +24,9 @@ public class Kunde {
         this.nummer = nummer;
     }
 
+    public Kunde() {
+    }
+
     public int getNummer() {
         return nummer;
     }
@@ -39,4 +42,9 @@ public class Kunde {
     public Gebaeude_Organisator getGebaeude() {return gebaeude;}
 
     public void setGebaeude(Gebaeude_Organisator gebaeude) {this.gebaeude = gebaeude;}
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
