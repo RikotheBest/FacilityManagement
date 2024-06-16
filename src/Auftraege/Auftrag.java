@@ -22,6 +22,15 @@ public class Auftrag {
  * @param status Der Status des Auftrags.
  */
     public Auftrag(Datum geplant, int nummer, String kategorie, String status) {
+   	 if (nummer <= 0) {
+         throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+     }
+     if (kategorie == null || kategorie.trim().isEmpty()) {
+         throw new IllegalArgumentException("Die Kategorie darf nicht leer sein.");
+     }
+     if (status == null || status.trim().isEmpty()) {
+         throw new IllegalArgumentException("Der Status darf nicht leer sein.");
+     }
         this.geplant = geplant;
         this.nummer = nummer;
         this.kategorie = kategorie;
@@ -33,6 +42,9 @@ public class Auftrag {
     }
 
     public void setGeplant(Datum geplant) {
+    	 if (geplant == null) {
+             throw new IllegalArgumentException("Das geplante Datum darf nicht null sein.");
+         }
         this.geplant = geplant;
     }
 
@@ -41,6 +53,9 @@ public class Auftrag {
     }
 
     public void setNummer(int nummer) {
+    	if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
         this.nummer = nummer;
     }
 
@@ -49,6 +64,9 @@ public class Auftrag {
     }
 
     public void setKategorie(String kategorie) {
+    	if (kategorie == null || kategorie.trim().isEmpty()) {
+            throw new IllegalArgumentException("Die Kategorie darf nicht leer sein.");
+        }
         this.kategorie = kategorie;
     }
 
@@ -57,6 +75,9 @@ public class Auftrag {
     }
 
     public void setStatus(String status) {
+    	if (status == null || status.trim().isEmpty()) {
+            throw new IllegalArgumentException("Der Status darf nicht leer sein.");
+        }
         this.status = status;
     }
 

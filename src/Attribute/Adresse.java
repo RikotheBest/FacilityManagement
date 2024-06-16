@@ -16,6 +16,16 @@ public class Adresse {
      * @param land Das Land der Adresse.
      */
     public Adresse(String strasse, int post, String land) {
+    	if (strasse == null || strasse.trim().isEmpty()) {
+            throw new IllegalArgumentException("Das Feld Straße darf nicht leer sein.");
+        }
+        if (post <= 0) {
+            throw new IllegalArgumentException("Die Postleitzahl muss eine positive Zahl sein.");
+        }
+        if (land == null || land.trim().isEmpty()) {
+            throw new IllegalArgumentException("Das Feld Land darf nicht leer sein.");
+        }
+        
         this.strasse = strasse;
         this.post = post;
         this.land = land;
@@ -26,6 +36,9 @@ public class Adresse {
     }
 
     public void setStrasse(String strasse) {
+    	if (strasse == null || strasse.trim().isEmpty()) {
+            throw new IllegalArgumentException("Das Feld Straße darf nicht leer sein.");
+    	}
         this.strasse = strasse;
     }
 
@@ -34,6 +47,9 @@ public class Adresse {
     }
 
     public void setPost(int post) {
+    	if (post <= 0) {
+            throw new IllegalArgumentException("Die Postleitzahl muss eine positive Zahl sein.");
+        }
         this.post = post;
     }
 
@@ -42,6 +58,9 @@ public class Adresse {
     }
 
     public void setLand(String land) {
+    	if (land == null || land.trim().isEmpty()) {
+            throw new IllegalArgumentException("Das Feld Land darf nicht leer sein.");
+        }
         this.land = land;
     }
 

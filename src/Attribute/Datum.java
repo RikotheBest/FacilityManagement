@@ -1,7 +1,9 @@
 package Attribute;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
@@ -19,10 +21,18 @@ public class Datum {
     private LocalDate date;
 
     public Datum(int tag, int monat, int jahr) {
-        date = LocalDate.of(jahr,monat,tag);
+    	 try {
+             date = LocalDate.of(jahr, monat, tag);
+         } catch (DateTimeException e) {
+             throw new IllegalArgumentException("Ungültiges Datum: " + tag + "/" + monat + "/" + jahr, e);
+         }
     }
     public Datum(String datum){
-        this.date = LocalDate.parse(datum);
+    	try {
+            this.date = LocalDate.parse(datum);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Ungültiges Datum: " + datum, e);
+        }
     }
 
     public Datum() {
@@ -33,7 +43,11 @@ public class Datum {
         return date;
     }
     public void setDate(int tag, int monat, int jahr){
-        date = LocalDate.of(jahr,monat,tag);
+    	 try {
+             date = LocalDate.of(jahr, monat, tag);
+         } catch (DateTimeException e) {
+             throw new IllegalArgumentException("Ungültiges Datum: " + tag + "/" + monat + "/" + jahr, e);
+         }
     }
     public String toString(){
         return date.toString();

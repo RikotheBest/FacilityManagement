@@ -24,27 +24,49 @@ public class Gebaeude {
      * @param austattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
      */
     public Gebaeude(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator austattung) {
+    	if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
         this.nummer = nummer;
         this.groesse = groesse;
         this.adresse = adresse;
         this.austattung = austattung;
     }
 
-    public int getNummer() {return nummer;}
+    public int getNummer() {
+    	return nummer;
+    }
 
-    public void setNummer(int nummer) {this.nummer = nummer;}
+    public void setNummer(int nummer) {
+    	if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
+    	this.nummer = nummer;
+    }
 
-    public Groesse getGroesse() {return groesse;}
+    public Groesse getGroesse() {
+    	return groesse;
+    }
 
-    public void setGroesse(Groesse groesse) {this.groesse = groesse;}
+    public void setGroesse(Groesse groesse) {
+    	this.groesse = groesse;
+    }
 
-    public Adresse getAdresse() {return adresse;}
+    public Adresse getAdresse() {
+    	return adresse;
+    }
 
-    public void setAdresse(Adresse adresse) {this.adresse = adresse;}
+    public void setAdresse(Adresse adresse) {
+    	this.adresse = adresse;
+    }
 
-    public Ausstattung_Organisator getAustattung() {return austattung;}
+    public Ausstattung_Organisator getAustattung() {
+    	return austattung;
+    }
 
-    public void setAustattung(Ausstattung_Organisator austattung) {this.austattung = austattung;}
+    public void setAustattung(Ausstattung_Organisator austattung) {
+    	this.austattung = austattung;
+    }
 
     @Override
     public String toString() {

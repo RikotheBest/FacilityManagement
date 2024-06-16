@@ -22,7 +22,18 @@ public abstract class Ausstattung {
 	 * @param nummer Die Nummer der Ausstattung.
 	 */
 	public Ausstattung(int preis, String ort, Auftrag_Organisator auftraege, int nummer) {
-
+		if (preis <= 0) {
+            throw new IllegalArgumentException("Der Preis muss größer als null sein: " + preis);
+        }
+        if (ort == null || ort.trim().isEmpty()) {
+            throw new IllegalArgumentException("Der Ort darf nicht leer sein.");
+        }
+        if (auftraege == null) {
+            throw new IllegalArgumentException("Der Auftrag_Organisator darf nicht null sein.");
+        }
+        if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
 		this.preis = preis;
 		this.ort = ort;
 		this.auftraege = auftraege;
@@ -35,10 +46,16 @@ public abstract class Ausstattung {
 	}
 
 	public void setName(String name) {
+		if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Der Name darf nicht leer sein.");
+        }
 		this.name = name;
 	}
 
 	public void setNummer(int nummer) {
+		if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
 		this.nummer = nummer;
 	}
 
@@ -48,6 +65,9 @@ public abstract class Ausstattung {
 	}
 
 	public void setPreis(int preis) {
+		if (preis <= 0) {
+            throw new IllegalArgumentException("Der Preis muss größer als null sein: " + preis);
+        }
 		this.preis = preis;
 	}
 
@@ -56,6 +76,9 @@ public abstract class Ausstattung {
 	}
 
 	public void setOrt(String ort) {
+		 if (ort == null || ort.trim().isEmpty()) {
+	            throw new IllegalArgumentException("Der Ort darf nicht leer sein.");
+	        }
 		this.ort = ort;
 	}
 
@@ -65,6 +88,9 @@ public abstract class Ausstattung {
 	//Gibt den Auftrag_Organisator der Ausstattung zurück.
 
 	public void setAuftraege(Auftrag_Organisator auftraege) {
+		if (auftraege == null) {
+            throw new IllegalArgumentException("Der Auftrag_Organisator darf nicht null sein.");
+        }
 		this.auftraege = auftraege;
 	} //Setzt den Auftrag_Organisator der Ausstattung.
 
