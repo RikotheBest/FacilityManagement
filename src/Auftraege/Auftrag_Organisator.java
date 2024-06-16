@@ -43,11 +43,21 @@ public class Auftrag_Organisator {
      * @param status Der Status des Auftrags.
      */
     public void add(Datum geplant, int nummer, String kategorie, String status){
-        boolean existiert = false;
-        for(Auftrag a : auftraege){
-            if(a.getNummer() == nummer) existiert = true;
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else auftraege.add(new Auftrag(geplant,nummer,kategorie,status));
+    	if (nummer <= 0) {
+            throw new IllegalArgumentException("Die Nummer muss größer als null sein: " + nummer);
+        }
+        if (kategorie == null || kategorie.trim().isEmpty()) {
+            throw new IllegalArgumentException("Die Kategorie darf nicht leer sein.");
+        }
+        if (status == null || status.trim().isEmpty()) {
+            throw new IllegalArgumentException("Der Status darf nicht leer sein.");
+        }
+        for (Auftrag a : auftraege) {
+            if (a.getNummer() == nummer) {
+                throw new IllegalArgumentException("Bitte geben Sie eine andere Nummer ein. Die Nummer " + nummer + " existiert bereits.");
+            }
+        }
+        auftraege.add(new Auftrag(geplant,nummer,kategorie,status));
     }
     /**
      * Entfernt einen Auftrag aus der Liste.
@@ -55,6 +65,9 @@ public class Auftrag_Organisator {
      * @param auftrag Der zu entfernende Auftrag.
      */
     public void delete(Auftrag auftrag){
+    	if (!auftraege.remove(auftrag)) {
+            throw new IllegalArgumentException("Der Auftrag konnte nicht entfernt werden, da er nicht in der Liste vorhanden ist.");
+        }
         auftraege.remove(auftrag);
     }
     /**
@@ -67,6 +80,9 @@ public class Auftrag_Organisator {
     }
 
     public void setAuftraege(ObservableList<Auftrag> auftraege) {
+    	if (auftraege == null) {
+            throw new IllegalArgumentException("Die Liste der Aufträge darf nicht null sein.");
+        }
         this.auftraege = auftraege;
     }
 

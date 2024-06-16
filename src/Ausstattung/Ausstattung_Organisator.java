@@ -29,7 +29,13 @@ public class Ausstattung_Organisator {
     public Ausstattung_Organisator() {
         austattungList = FXCollections.observableArrayList();
     }
-
+    private void checkForDuplicateNumber(int nummer) {
+        for (Ausstattung a : austattungList) {
+            if (a.getNummer() == nummer) {
+                throw new IllegalArgumentException("Die Folgende Nummer ist bereits vergeben: " + nummer + "Bitte geben Sie eine andere Nummer ein!");
+            }
+        }
+    }
     /**
      * Fügt einen neuen Feuerlöscher zur Liste hinzu, falls die Nummer noch nicht existiert.
      *
@@ -39,14 +45,8 @@ public class Ausstattung_Organisator {
      * @param nummer Die Nummer des Feuerlöschers.
      */
     public void addFeuerloescher(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
-        boolean existiert = false;
-        for(Ausstattung a : austattungList){
-            if (a.getNummer() == nummer) {
-                existiert = true;
-                break;
-            }
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Feuerloescher(preis,ort,auftraege, nummer));
+    	checkForDuplicateNumber(nummer);
+        austattungList.add(new Feuerloescher(preis, ort, auftraege, nummer));
     }
 
     /**
@@ -58,15 +58,9 @@ public class Ausstattung_Organisator {
      * @param nummer Die Nummer des Rauchmelders.
      */
     public void addRauchmelder( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
-        boolean existiert = false;
-        for(Ausstattung a : austattungList){
-            if (a.getNummer() == nummer) {
-                existiert = true;
-                break;
-            }
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Rauchmelder(preis,ort,auftraege, nummer));
-    }
+    	 checkForDuplicateNumber(nummer);
+         austattungList.add(new Rauchmelder(preis, ort, auftraege, nummer));
+     }
 
     /**
      * Fügt ein neues Sitzmöbel zur Liste hinzu, falls die Nummer noch nicht existiert.
@@ -77,15 +71,10 @@ public class Ausstattung_Organisator {
      * @param nummer Die Nummer des Sitzmöbels.
      */
     public void addSitzmoebel(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
-        boolean existiert = false;
-        for(Ausstattung a : austattungList){
-            if (a.getNummer() == nummer) {
-                existiert = true;
-                break;
-            }
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Sitzmoebel (preis,ort,auftraege, nummer));
+    	checkForDuplicateNumber(nummer);
+        austattungList.add(new Sitzmoebel(preis, ort, auftraege, nummer));
     }
+
 
 
     /**
@@ -97,15 +86,10 @@ public class Ausstattung_Organisator {
      * @param nummer Die Nummer des Tisches.
      */
     public void addTisch( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
-        boolean existiert = false;
-        for(Ausstattung a : austattungList){
-            if (a.getNummer() == nummer) {
-                existiert = true;
-                break;
-            }
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Tisch(preis,ort,auftraege, nummer));
+    	checkForDuplicateNumber(nummer);
+        austattungList.add(new Tisch(preis, ort, auftraege, nummer));
     }
+
 
     /**
      * Fügt einen neuen Schrank zur Liste hinzu, falls die Nummer noch nicht existiert.
@@ -116,15 +100,10 @@ public class Ausstattung_Organisator {
      * @param nummer Die Nummer des Schranks.
      */
     public void addSchrank(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
-        boolean existiert = false;
-        for(Ausstattung a : austattungList){
-            if (a.getNummer() == nummer) {
-                existiert = true;
-                break;
-            }
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else austattungList.add(new Schrank(preis, ort, auftraege, nummer));
+    	checkForDuplicateNumber(nummer);
+        austattungList.add(new Schrank(preis, ort, auftraege, nummer));
     }
+
 
     public ObservableList<Ausstattung> getAustattungList() {
         return austattungList;
@@ -136,7 +115,9 @@ public class Ausstattung_Organisator {
      * @param a Die zu entfernende Ausstattung.
      */
     public void delete(Ausstattung a){
-        austattungList.remove(a);
+    	if (!austattungList.remove(a)) {
+            throw new IllegalArgumentException("Die angegebene Ausstattung existiert nicht.");
+        }
     }
 
     /**
@@ -146,6 +127,9 @@ public class Ausstattung_Organisator {
      * @return Die Liste der Aufträge der angegebenen Ausstattung.
      */
     public ObservableList<Auftrag> getAuftragsListe(int i){
+    	if (i < 0 || i >= austattungList.size()) {
+            throw new IndexOutOfBoundsException("Ungültiger Index: " + i);
+        }
         return austattungList.get(i).getAuftraege().getAuftraege();
     }
 
@@ -155,33 +139,34 @@ public class Ausstattung_Organisator {
      * @throws SQLException Wenn ein SQL-Fehler auftritt.
      */
     public void speichereAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
-        Connection con = DriverManager.getConnection(URL);
-        String loeschenSQL = "DELETE FROM Auftrag";
-        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
-        statement2.executeUpdate();
-        statement2.close();
+    	try (Connection con = DriverManager.getConnection(URL)) {
+            String loeschenSQL = "DELETE FROM Auftrag";
+            try (PreparedStatement statement2 = con.prepareStatement(loeschenSQL)) {
+                statement2.executeUpdate();
+            }
 
-
-        String speichernSQL = "INSERT INTO Auftrag (" + AUFTRAGID +", " + DATUM + ", " + KATEGORIE +  ", " + STATUS + ", " + AUSSTATTUNGID + ") VALUES(?,?,?,?,?)";
-        PreparedStatement statement = con.prepareStatement(speichernSQL);
-
-        int i = 0;
-
-        for (Ausstattung as : austattungList) {
-            for (Auftrag a : getAuftragsListe(i)) {
-            statement.setInt(1, a.getNummer());
-            statement.setString(2, a.getGeplant().toString());
-            statement.setString(3, a.getKategorie());
-            statement.setString(4, a.getStatus());
-            statement.setInt(5, austattungList.get(i).getNummer());
-            statement.executeUpdate();
-
+            String speichernSQL = "INSERT INTO Auftrag (" + AUFTRAGID + ", " + DATUM + ", " + KATEGORIE + ", " + STATUS + ", " + AUSSTATTUNGID + ") VALUES(?,?,?,?,?)";
+            try (PreparedStatement statement = con.prepareStatement(speichernSQL)) {
+                int i = 0;
+                for (Ausstattung as : austattungList) {
+                    for (Auftrag a : getAuftragsListe(i)) {
+                        statement.setInt(1, a.getNummer());
+                        statement.setString(2, a.getGeplant().toString());
+                        statement.setString(3, a.getKategorie());
+                        statement.setString(4, a.getStatus());
+                        statement.setInt(5, austattungList.get(i).getNummer());
+                        statement.executeUpdate();
+                    }
+                    i++;
+              
+                }
+                statement.close();
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Fehler beim Speichern der Aufträge in der Datenbank.", e);
         }
-            i++;
-    }
-
-        statement.close();
-        con.close();
     }
 
     /**
@@ -190,22 +175,26 @@ public class Ausstattung_Organisator {
      * @throws SQLException Wenn ein SQL-Fehler auftritt.
      */
     public void upload() throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
-        String uploadSQL = "SELECT * FROM Auftrag";
-        Statement statement = con.createStatement();
-        ResultSet result = statement.executeQuery(uploadSQL);
+    	try (Connection con = DriverManager.getConnection(URL);
+                Statement statement = con.createStatement();
+                ResultSet result = statement.executeQuery("SELECT * FROM Auftrag")) {
 
-        while (result.next()){
-            int i = result.getInt(AUSSTATTUNGID);
-            for(Ausstattung a : austattungList){
-                if(a.getNummer() == i){
-                    a.getAuftraege().add(new Datum(result.getString(DATUM)), result.getInt(AUFTRAGID), result.getString(KATEGORIE), result.getString(STATUS));
-                }
-            }
-        }
-        statement.close();
-        con.close();
-    }
+               while (result.next()) {
+                   int i = result.getInt(AUSSTATTUNGID);
+                   for (Ausstattung a : austattungList) {
+                       if (a.getNummer() == i) {
+                           a.getAuftraege().add(new Datum(result.getString(DATUM)), result.getInt(AUFTRAGID), result.getString(KATEGORIE), result.getString(STATUS));
+                       }
+                   }
+               } 
+               statement.close();
+               con.close();
+           } catch (SQLException e) {
+               e.printStackTrace();
+               throw new SQLException("Fehler beim Hochladen der Aufträge aus der Datenbank.", e);
+           }
+       }
+    
 
     /**
      * Überschreibt die toString-Methode, um die Liste der Ausstattungen als String darzustellen.

@@ -19,6 +19,15 @@ public class Groesse{
      */
 
     public Groesse(int stockwerke, double flaeche, double raeume) {
+    	if (stockwerke < 0) {
+            throw new IllegalArgumentException("Die Anzahl der Stockwerke darf nicht negativ sein: " + stockwerke);
+        }
+        if (flaeche <= 0) {
+            throw new IllegalArgumentException("Die Fläche muss größer als null sein: " + flaeche);
+        }
+        if (raeume <= 0) {
+            throw new IllegalArgumentException("Die Anzahl der Räume muss größer als null sein: " + raeume);
+        }
         this.stockwerke = stockwerke;
         this.flaeche = flaeche;
         this.raeume = raeume;
@@ -30,6 +39,9 @@ public class Groesse{
     }
 
     public void setStockwerke(int stockwerke) {
+    	if (stockwerke < 0) {
+            throw new IllegalArgumentException("Die Anzahl der Stockwerke darf nicht negativ sein: " + stockwerke);
+        }
         this.stockwerke = stockwerke;
     }
 
@@ -38,6 +50,9 @@ public class Groesse{
     }
 
     public void setFlaeche(double flaeche) {
+    	if (flaeche <= 0) {
+            throw new IllegalArgumentException("Die Fläche muss größer als null sein: " + flaeche);
+        }
         this.flaeche = flaeche;
     }
 
@@ -46,6 +61,9 @@ public class Groesse{
     }
 
     public void setRaeume(double raeume) {
+    	if (raeume <= 0) {
+            throw new IllegalArgumentException("Die Anzahl der Räume muss größer als null sein: " + raeume);
+        }
         this.raeume = raeume;
     }
 
