@@ -38,7 +38,7 @@
         <items>
           <AnchorPane minHeight="28.0" minWidth="0.0" prefHeight="879.0" prefWidth="1645.0">
                <children>
-                  <TableView fx:id="tableAusstattung" layoutX="159.0" layoutY="137.0" prefHeight="597.0" prefWidth="1645.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableAusstattung" layoutX="159.0" layoutY="137.0" onMouseClicked="#selectAusstattung" prefHeight="597.0" prefWidth="1645.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="ausstattungNummer" prefWidth="75.0" text="Nummer" />
                       <TableColumn fx:id="ausstattungName" prefWidth="75.0" text="Name" />
@@ -50,10 +50,12 @@
             </AnchorPane>
           <AnchorPane maxHeight="1.7976931348623157E308" minHeight="28.0" minWidth="0.0" prefHeight="473.0" prefWidth="1645.0">
                <children>
-                  <TableView layoutX="269.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableAuftrag" layoutX="269.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="auftragNummer" prefWidth="75.0" text="Nummer" />
+                      <TableColumn fx:id="auftragKategorie" prefWidth="75.0" text="Kategorie" />
+                        <TableColumn fx:id="auftragGeplant" prefWidth="75.0" text="Geplant" />
+                        <TableColumn fx:id="auftragStatus" prefWidth="75.0" text="Status" />
                     </columns>
                   </TableView>
                </children>

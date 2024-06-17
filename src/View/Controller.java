@@ -1,6 +1,7 @@
 package View;
 
 
+import Auftraege.Auftrag;
 import Ausstattung.*;
 import Gebaeude.*;
 import Kunden.*;
@@ -25,13 +26,15 @@ public class Controller implements Initializable {
     @FXML
     private TableView<Ausstattung> tableAusstattung;
     @FXML
-    private TableColumn<Ausstattung,Integer> ausstattungNummer;
+    private TableView<Auftrag> tableAuftrag;
     @FXML
-    private TableColumn<Ausstattung,String> ausstattungName;
+    private TableColumn<Ausstattung,Integer> ausstattungNummer, ausstattungPreis;
     @FXML
-    private TableColumn<Ausstattung,String> ausstattungOrt;
+    private TableColumn<Ausstattung,String> ausstattungName, ausstattungOrt;
     @FXML
-    private TableColumn<Ausstattung,Integer> ausstattungPreis;
+    private TableColumn<Auftrag, Integer> auftragNummer;
+    @FXML
+    private TableColumn<Auftrag, String> auftragKategorie, auftragStatus, auftragGeplant;
 
     private Kunde_Organisator kunden;
 
@@ -47,10 +50,18 @@ public class Controller implements Initializable {
             kunden.uploadGebaeude();
             for(Kunde k : kunden.getKundenListe()){
                 k.getGebaeude().upload();
+                for(Gebaeude g : k.getGebaeude().getGebaeudeListe()){
+                    g.getAustattung().upload();
+                }
             }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
 
         TreeItem<Object> root = new TreeItem<>("root");
         treeView.setRoot((root));
@@ -75,5 +86,15 @@ public class Controller implements Initializable {
         ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
         ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
         tableAusstattung.setItems(g.getAustattung().getAustattungList());
+    }
+    public void selectAusstattung(){
+        Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
+        auftragNummer.setCellValueFactory(new PropertyValueFactory<Auftrag, Integer>("nummer"));
+        auftragKategorie.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("kategorie"));
+        auftragStatus.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("status"));
+        auftragGeplant.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("geplant"));
+        tableAuftrag.setItems(a.getAuftraege().getAuftraege());
+
+
     }
 }
