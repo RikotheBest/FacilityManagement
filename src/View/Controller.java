@@ -97,4 +97,13 @@ public class Controller implements Initializable {
 
 
     }
+    public void save() throws SQLException {
+        kunden.speichern();
+        kunden.speichereGebaeude();
+
+
+    }
+    public void upload(){
+
+    }
 }

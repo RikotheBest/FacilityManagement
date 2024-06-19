@@ -28,7 +28,22 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                        <Menu mnemonicParsing="false" text="Add">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Add Kunde" />
+                              <MenuItem mnemonicParsing="false" text="Add Gebaeude" />
+                              <MenuItem mnemonicParsing="false" text="Add Ausstattung" />
+                              <MenuItem mnemonicParsing="false" text="Add Auftrag" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Delete">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Delete Kunde" />
+                          <MenuItem mnemonicParsing="false" text="Delete Gebaeude" />
+                              <MenuItem mnemonicParsing="false" text="Delete Auftrag" />
+                              <MenuItem mnemonicParsing="false" text="Delete Ausstattung" />
+                           </items>
+                        </Menu>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -43,7 +58,7 @@
         <items>
           <AnchorPane minHeight="28.0" minWidth="0.0" prefHeight="879.0" prefWidth="1645.0">
                <children>
-                  <TableView fx:id="tableAusstattung" layoutX="159.0" layoutY="137.0" onMouseClicked="#selectAusstattung" prefHeight="618.0" prefWidth="1645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableAusstattung" layoutY="-2.0" onMouseClicked="#selectAusstattung" prefHeight="618.0" prefWidth="1645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                     <columns>
                       <TableColumn fx:id="ausstattungNummer" prefWidth="75.0" text="Nummer" />
                       <TableColumn fx:id="ausstattungName" prefWidth="75.0" text="Name" />
