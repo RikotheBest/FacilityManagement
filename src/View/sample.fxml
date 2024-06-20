@@ -30,7 +30,7 @@
                   <items>
                         <Menu mnemonicParsing="false" text="Add">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Add Kunde" />
+                              <MenuItem mnemonicParsing="false" onAction="#addKunde" onMenuValidation="#addKunde" text="Add Kunde" />
                               <MenuItem mnemonicParsing="false" text="Add Gebaeude" />
                               <MenuItem mnemonicParsing="false" text="Add Ausstattung" />
                               <MenuItem mnemonicParsing="false" text="Add Auftrag" />

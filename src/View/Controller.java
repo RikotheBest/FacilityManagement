@@ -7,14 +7,16 @@ import Gebaeude.*;
 import Kunden.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -37,6 +39,7 @@ public class Controller implements Initializable {
     private TableColumn<Auftrag, String> auftragKategorie, auftragStatus, auftragGeplant;
 
     private Kunde_Organisator kunden;
+    private KundeDialog kundeDialog;
 
 
 
@@ -46,21 +49,10 @@ public class Controller implements Initializable {
 
 
         try {
-            kunden.upload();
-            kunden.uploadGebaeude();
-            for(Kunde k : kunden.getKundenListe()){
-                k.getGebaeude().upload();
-                for(Gebaeude g : k.getGebaeude().getGebaeudeListe()){
-                    g.getAustattung().upload();
-                }
-            }
-
-
+          upload();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
 
         TreeItem<Object> root = new TreeItem<>("root");
@@ -100,10 +92,27 @@ public class Controller implements Initializable {
     public void save() throws SQLException {
         kunden.speichern();
         kunden.speichereGebaeude();
+        for(Kunde k : kunden.getKundenListe()){
+            k.getGebaeude().speichereAusstattung();
+            for (Gebaeude g : k.getGebaeude().getGebaeudeListe()) {
+                g.getAustattung().speichereAuftraege();
+            }
+        }
+    }
+    public void upload() throws SQLException{
+        kunden.upload();
+        kunden.uploadGebaeude();
+        for(Kunde k : kunden.getKundenListe()){
+            k.getGebaeude().upload();
+            for(Gebaeude g : k.getGebaeude().getGebaeudeListe()){
+                g.getAustattung().upload();
+            }
+        }
+    }
+    public void addKunde(){
+       kundeDialog = new KundeDialog();
 
 
     }
-    public void upload(){
 
-    }
 }
