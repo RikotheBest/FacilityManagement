@@ -1,10 +1,10 @@
 package View;
 
 import Kunden.Kunde;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
@@ -20,8 +20,29 @@ public class KundeDialog extends Dialog<Kunde> {
     public void buildUI(){
         Pane pane = createGridPane();
         this.getDialogPane().setContent(pane);
+        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+        Button button = (Button) this.getDialogPane().lookupButton(ButtonType.OK);
+        button.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(!validateDialog()){
+                    actionEvent.consume();
+                }
+            }
+        });
+
+
         this.show();
+
     }
+
+    private boolean validateDialog() {
+        if ((nameField.getText().isEmpty()) || (nummerField.getText().isEmpty())){
+            return false;
+        }
+        return true;
+    }
+
     public Pane createGridPane(){
         GridPane grid = new GridPane();
         grid.setHgap(10);
