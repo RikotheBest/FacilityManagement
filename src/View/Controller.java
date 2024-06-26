@@ -5,18 +5,18 @@ import Auftraege.Auftrag;
 import Ausstattung.*;
 import Gebaeude.*;
 import Kunden.*;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     @FXML
     private TreeView<Object> treeView;
+    private TreeItem<Object> root;
 
     @FXML
     private TableView<Ausstattung> tableAusstattung;
@@ -46,6 +47,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         kunden = new Kunde_Organisator();
+        createKundenListener();
+        createTree();
+
 
 
         try {
@@ -55,29 +59,66 @@ public class Controller implements Initializable {
         }
 
 
-        TreeItem<Object> root = new TreeItem<>("root");
-        treeView.setRoot((root));
-        treeView.setShowRoot(false);
-        int i = 0;
-        for(Kunde k : kunden.getKundenListe()){
-            root.getChildren().add(new TreeItem<>(k));
-            for (Gebaeude g : kunden.getGebaeudeListe(i)){
-                root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
-            }
-            i++;
-        }
 
 
 
     }
-    public void selectGebaeude(){
+    public void createTree(){
+        root = new TreeItem<>("root");
+        treeView.setRoot((root));
+        treeView.setShowRoot(false);
+    }
+    public void createKundenListener(){
+        kunden.getKundenListe().addListener(new ListChangeListener<Kunde>() {
+            @Override
+            public void onChanged(Change<? extends Kunde> change) {
+                while(change.next()){
+                    if(change.wasAdded()){
+                        fillKunde(change.getAddedSubList());
+                        createGebaudeListener(change.getAddedSubList());
+                    }
+                }
+            }
 
-        Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
-        ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
-        ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
-        ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
-        ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
-        tableAusstattung.setItems(g.getAustattung().getAustattungList());
+        });
+
+    }
+    public void createGebaudeListener(List<? extends Kunde> list) {
+        for (Kunde k : list) {
+            k.getGebaeude().getGebaeudeListe().addListener(new ListChangeListener<Gebaeude>() {
+                @Override
+                public void onChanged(Change<? extends Gebaeude> change) {
+                    while (change.next()) {
+                        if (change.wasAdded()) {
+                            fillGebaeude(change.getAddedSubList());
+                        }
+                    }
+                }
+            });
+
+        }
+    }
+    public void fillKunde(List<? extends Kunde> list){
+        for(Kunde k : list){
+            root.getChildren().add(new TreeItem<>(k));
+        }
+    }
+    public void fillGebaeude(List<? extends Gebaeude> list){
+        int i = 0;
+        for(Kunde k : kunden.getKundenListe()){
+            for (Gebaeude g : list){
+                root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
+            }
+            i++;
+        }
+    }
+    public void selectGebaeude(){
+            Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
+            ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
+            ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
+            ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
+            ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
+            tableAusstattung.setItems(g.getAustattung().getAustattungList());
     }
     public void selectAusstattung(){
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
@@ -86,7 +127,6 @@ public class Controller implements Initializable {
         auftragStatus.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("status"));
         auftragGeplant.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("geplant"));
         tableAuftrag.setItems(a.getAuftraege().getAuftraege());
-
 
     }
     public void save() throws SQLException {
@@ -110,7 +150,7 @@ public class Controller implements Initializable {
         }
     }
     public void addKunde(){
-       kundeDialog = new KundeDialog();
+       kunden.add("test", new Gebaeude_Organisator(), 15);
 
 
     }

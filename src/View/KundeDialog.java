@@ -1,21 +1,30 @@
 package View;
 
+import Gebaeude.Gebaeude_Organisator;
 import Kunden.Kunde;
+import Kunden.Kunde_Organisator;
+import com.sun.jdi.VoidType;
+import com.sun.jdi.VoidValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import org.w3c.dom.Text;
 
-public class KundeDialog extends Dialog<Kunde> {
+public class KundeDialog extends Dialog<Void> {
     private TextField nummerField;
     private TextField nameField;
-    public KundeDialog() {
+    private TextFormatter<Integer> nummerFormatter;
+    public KundeDialog(Kunde_Organisator kunde) {
         super();
         this.setTitle("add Kunde");
         buildUI();
+        setResult(kunde);
     }
     public void buildUI(){
         Pane pane = createGridPane();
@@ -35,6 +44,10 @@ public class KundeDialog extends Dialog<Kunde> {
         this.show();
 
     }
+    public void setResult(Kunde_Organisator kunde){
+        Void result = kunde.add(nameField.getText(), new Gebaeude_Organisator(), nummerFormatter.getValue());
+        this.setResult(result);
+    }
 
     private boolean validateDialog() {
         if ((nameField.getText().isEmpty()) || (nummerField.getText().isEmpty())){
@@ -42,6 +55,8 @@ public class KundeDialog extends Dialog<Kunde> {
         }
         return true;
     }
+
+
 
     public Pane createGridPane(){
         GridPane grid = new GridPane();
@@ -51,6 +66,10 @@ public class KundeDialog extends Dialog<Kunde> {
 
         nameField = new TextField();
         nummerField = new TextField();
+
+        StringConverter<Integer> toIntConvertor = new IntegerStringConverter();
+        nummerFormatter = new TextFormatter<>(toIntConvertor, 0);
+        nummerField.setTextFormatter(nummerFormatter);
 
         grid.add(new Label("Name: "), 0, 0);
         grid.add(nameField, 1, 0);
