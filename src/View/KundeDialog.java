@@ -24,7 +24,8 @@ public class KundeDialog extends Dialog<Void> {
         super();
         this.setTitle("add Kunde");
         buildUI();
-        setResult(kunde);
+        createResultConverter(kunde);
+
     }
     public void buildUI(){
         Pane pane = createGridPane();
@@ -40,20 +41,27 @@ public class KundeDialog extends Dialog<Void> {
             }
         });
 
-
-        this.show();
-
     }
-    public void setResult(Kunde_Organisator kunde){
-        Void result = kunde.add(nameField.getText(), new Gebaeude_Organisator(), nummerFormatter.getValue());
-        this.setResult(result);
-    }
+
+
 
     private boolean validateDialog() {
         if ((nameField.getText().isEmpty()) || (nummerField.getText().isEmpty())){
             return false;
         }
         return true;
+    }
+    public void createResultConverter(Kunde_Organisator kunde){
+        Callback<ButtonType,Void> resultConverter = new Callback<ButtonType, Void>() {
+            @Override
+            public Void call(ButtonType buttonType) {
+             if(buttonType == ButtonType.OK){
+                 kunde.add(nameField.getText(), new Gebaeude_Organisator(), nummerFormatter.getValue());
+             }
+             return null;
+            }
+        };
+        setResultConverter(resultConverter);
     }
 
 
