@@ -38,33 +38,35 @@ public class Controller implements Initializable {
     private TableColumn<Auftrag, String> auftragKategorie, auftragStatus, auftragGeplant;
 
     private Kunde_Organisator kunden;
-    private KundeDialog kundeDialog;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         kunden = new Kunde_Organisator();
-        createKundenListener();
-        createTree();
-
-
-
         try {
           upload();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
-
+        createTree();
+        createKundenListener();
 
     }
+
+
     public void createTree(){
         root = new TreeItem<>("root");
         treeView.setRoot((root));
         treeView.setShowRoot(false);
+        int i = 0;
+        for(Kunde k : kunden.getKundenListe()) {
+            root.getChildren().add(new TreeItem<>(k));
+            for (Gebaeude g : k.getGebaeude().getGebaeudeListe()){
+                root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
+            }
+            i++;
+        }
     }
     public void createKundenListener(){
         kunden.getKundenListe().addListener(new ListChangeListener<Kunde>() {
@@ -73,7 +75,7 @@ public class Controller implements Initializable {
                 while(change.next()){
                     if(change.wasAdded()){
                         fillKunde(change.getAddedSubList());
-                        createGebaudeListener(change.getAddedSubList());
+                       createGebaudeListener(change.getAddedSubList());
                     }
                 }
             }
@@ -89,6 +91,7 @@ public class Controller implements Initializable {
                     while (change.next()) {
                         if (change.wasAdded()) {
                             fillGebaeude(change.getAddedSubList());
+
                         }
                     }
                 }
@@ -102,13 +105,11 @@ public class Controller implements Initializable {
         }
     }
     public void fillGebaeude(List<? extends Gebaeude> list){
-        int i = 0;
-        for(Kunde k : kunden.getKundenListe()){
+        TreeItem<Object> treeItem = treeView.getSelectionModel().getSelectedItem();
             for (Gebaeude g : list){
-                root.getChildren().get(i).getChildren().add(new TreeItem<>(g));
-            }
-            i++;
+                treeItem.getChildren().add(new TreeItem<>(g));
         }
+
     }
     public void selectGebaeude(){
             Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();

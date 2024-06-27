@@ -46,7 +46,7 @@ public class KundeDialog extends Dialog<Void> {
 
 
     private boolean validateDialog() {
-        if ((nameField.getText().isEmpty()) || (nummerField.getText().isEmpty())){
+        if ((nameField.getText().isEmpty()) || (nummerFormatter.getValue() ==0)){
             return false;
         }
         return true;
