@@ -64,14 +64,7 @@ public class Kunde_Organisator {
         return kundenListe.get(i).getGebaeude().getGebaeudeListe();
     }
 
-    public void speichereGebaeude()throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
-        String loeschenSQL = "DELETE FROM Gebaeude";
-        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
-        statement2.executeUpdate();
-        statement2.close();
-
-
+    public void speichereGebaeude(Connection con)throws SQLException {
         String speichernSQL = "INSERT INTO Gebaeude (" + GEBAEUDEID +", " + ADRESSE + ", " + GROESSE +  ", " + KUNDEID + ") VALUES(?,?,?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
         Gson gson = new Gson();
@@ -90,12 +83,10 @@ public class Kunde_Organisator {
         }
 
         statement.close();
-        con.close();
 
 
     }
-    public void uploadGebaeude() throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
+    public void uploadGebaeude(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Gebaeude";
         Statement statement = con.createStatement();
         ResultSet result = statement.executeQuery(uploadSQL);
@@ -112,16 +103,8 @@ public class Kunde_Organisator {
             }
         }
         statement.close();
-        con.close();
     }
-    public void speichern()throws SQLException{
-        Connection con = DriverManager.getConnection(URL);
-        String loeschenSQL = "DELETE FROM Kunden";
-        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
-        statement2.executeUpdate();
-        statement2.close();
-
-
+    public void speichern(Connection con)throws SQLException{
         String speichernSQL = "INSERT INTO Kunden (" + KUNDEID +", " + NAME +  ") VALUES(?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
         Gson gson = new Gson();
@@ -134,10 +117,8 @@ public class Kunde_Organisator {
         }
 
         statement.close();
-        con.close();
     }
-    public void upload() throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
+    public void upload(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Kunden";
         Statement statement = con.createStatement();
         ResultSet result = statement.executeQuery(uploadSQL);
@@ -147,6 +128,6 @@ public class Kunde_Organisator {
                  kundenListe.add(new Kunde(result.getString(NAME), new Gebaeude_Organisator(),result.getInt(KUNDEID)));
         }
         statement.close();
-        con.close();
     }
+
 }

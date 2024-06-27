@@ -138,15 +138,12 @@ public class Ausstattung_Organisator {
      *
      * @throws SQLException Wenn ein SQL-Fehler auftritt.
      */
-    public void speichereAuftraege() throws SQLException { // speichert alle Auftraege von allen Austattungen
-    	try (Connection con = DriverManager.getConnection(URL)) {
-            String loeschenSQL = "DELETE FROM Auftrag";
-            try (PreparedStatement statement2 = con.prepareStatement(loeschenSQL)) {
-                statement2.executeUpdate();
-            }
+    public void speichereAuftraege(Connection con) throws SQLException { // speichert alle Auftraege von allen Austattungen
+    	try{
+
 
             String speichernSQL = "INSERT INTO Auftrag (" + AUFTRAGID + ", " + DATUM + ", " + KATEGORIE + ", " + STATUS + ", " + AUSSTATTUNGID + ") VALUES(?,?,?,?,?)";
-            try (PreparedStatement statement = con.prepareStatement(speichernSQL)) {
+            PreparedStatement statement = con.prepareStatement(speichernSQL);
                 int i = 0;
                 for (Ausstattung as : austattungList) {
                     for (Auftrag a : getAuftragsListe(i)) {
@@ -161,8 +158,7 @@ public class Ausstattung_Organisator {
               
                 }
                 statement.close();
-                con.close();
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new SQLException("Fehler beim Speichern der Aufträge in der Datenbank.", e);
@@ -174,9 +170,8 @@ public class Ausstattung_Organisator {
      *
      * @throws SQLException Wenn ein SQL-Fehler auftritt.
      */
-    public void upload() throws SQLException {
-    	try (Connection con = DriverManager.getConnection(URL);
-                Statement statement = con.createStatement();
+    public void upload(Connection con) throws SQLException {
+    	try (Statement statement = con.createStatement();
                 ResultSet result = statement.executeQuery("SELECT * FROM Auftrag")) {
 
                while (result.next()) {
@@ -188,7 +183,7 @@ public class Ausstattung_Organisator {
                    }
                } 
                statement.close();
-               con.close();
+
            } catch (SQLException e) {
                e.printStackTrace();
                throw new SQLException("Fehler beim Hochladen der Aufträge aus der Datenbank.", e);

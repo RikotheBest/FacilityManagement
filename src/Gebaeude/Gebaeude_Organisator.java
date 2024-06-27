@@ -5,6 +5,7 @@ import Attribute.Groesse;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
+import Kunden.Kunde_Organisator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,7 +24,6 @@ public class Gebaeude_Organisator {
     private final String ORT = "Ort";
     private final String PREIS = "Preis";
     private final String NAME = "Name";
-    private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
 
 
     public Gebaeude_Organisator() {
@@ -75,23 +75,18 @@ public class Gebaeude_Organisator {
      *
      * @throws SQLException Wenn ein SQL-Fehler auftritt.
      */
-    public void speichereAusstattung()throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
-        String loeschenSQL = "DELETE FROM Ausstattung";
-        PreparedStatement statement2 = con.prepareStatement(loeschenSQL);
-        statement2.executeUpdate();
-        statement2.close();
-
-
+    public void speichereAusstattung(Connection con)throws SQLException {
         String speichernSQL = "INSERT INTO Ausstattung (" + AUSSTATTUNGID +", " + GEBAEUDEID + ", " + ORT +  ", " + PREIS + ", " + NAME + ") VALUES(?,?,?,?,?)";
         PreparedStatement statement = con.prepareStatement(speichernSQL);
 
         int i = 0;
 
-        for (Gebaeude g : gebaeudeListe) {
+        for (Gebaeude g : getGebaeudeListe()) {
+            System.out.println("test");
             for (Ausstattung a : getAusstattungsListe(i)) {
+                System.out.println("test1");
                 statement.setInt(1, a.getNummer());
-                statement.setInt(2, gebaeudeListe.get(i).getNummer());
+                statement.setInt(2, getGebaeudeListe().get(i).getNummer());
                 statement.setString(3, a.getOrt());
                 statement.setInt(4, a.getPreis());
                 statement.setString(5, a.getName());
@@ -100,18 +95,16 @@ public class Gebaeude_Organisator {
             }
             i++;
         }
-
         statement.close();
-        con.close();
 
-        /**
-         * Lädt alle Ausstattungen aus der Datenbank und fügt sie den entsprechenden Gebäuden hinzu.
-         *
-         * @throws SQLException Wenn ein SQL-Fehler auftritt.
-         */
     }
-    public void upload() throws SQLException {
-        Connection con = DriverManager.getConnection(URL);
+
+    /**
+     * Lädt alle Ausstattungen aus der Datenbank und fügt sie den entsprechenden Gebäuden hinzu.
+     *
+     * @throws SQLException Wenn ein SQL-Fehler auftritt.
+     */
+    public void upload(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Ausstattung";
         Statement statement = con.createStatement();
         ResultSet result = statement.executeQuery(uploadSQL);
@@ -138,7 +131,6 @@ public class Gebaeude_Organisator {
             }
         }
         statement.close();
-        con.close();
     }
     public String toString(){
         for (Gebaeude g:

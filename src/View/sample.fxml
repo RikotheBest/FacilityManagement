@@ -32,7 +32,7 @@
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#addKunde" onMenuValidation="#addKunde" text="Add Kunde" />
                               <MenuItem mnemonicParsing="false" text="Add Gebaeude" />
-                              <MenuItem mnemonicParsing="false" text="Add Ausstattung" />
+                              <MenuItem mnemonicParsing="false" onAction="#addAusstattung" text="Add Ausstattung" />
                               <MenuItem mnemonicParsing="false" text="Add Auftrag" />
                            </items>
                         </Menu>
