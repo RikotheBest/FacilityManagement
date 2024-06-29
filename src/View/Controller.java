@@ -9,10 +9,12 @@ import Gebaeude.*;
 import Kunden.*;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -58,6 +60,7 @@ public class Controller implements Initializable {
         }
         createTree();
         createKundenListener();
+        createGebaudeListener();
 
     }
 
@@ -82,7 +85,9 @@ public class Controller implements Initializable {
                 while(change.next()){
                     if(change.wasAdded()){
                         fillKunde(change.getAddedSubList());
-                       createGebaudeListener(change.getAddedSubList());
+                        createGebaudeListener(change.getAddedSubList());
+                    } else if (change.wasRemoved()) {
+                        rmKundeFromTree();
                     }
                 }
             }
@@ -98,7 +103,25 @@ public class Controller implements Initializable {
                     while (change.next()) {
                         if (change.wasAdded()) {
                             fillGebaeude(change.getAddedSubList());
+                        } else if (change.wasRemoved()) {
+                            rmGebaeudeFromTree();
+                        }
+                    }
+                }
+            });
 
+        }
+    }
+    public void createGebaudeListener() {
+        for (Kunde k : kunden.getKundenListe()) {
+            k.getGebaeude().getGebaeudeListe().addListener(new ListChangeListener<Gebaeude>() {
+                @Override
+                public void onChanged(Change<? extends Gebaeude> change) {
+                    while (change.next()) {
+                        if (change.wasAdded()) {
+                            fillGebaeude(change.getAddedSubList());
+                        } else if (change.wasRemoved()) {
+                            rmGebaeudeFromTree();
                         }
                     }
                 }
@@ -116,7 +139,14 @@ public class Controller implements Initializable {
             for (Gebaeude g : list){
                 treeItem.getChildren().add(new TreeItem<>(g));
         }
-
+    }
+    public void rmKundeFromTree(){
+        TreeItem<Object> t = treeView.getSelectionModel().getSelectedItem();
+        if(t != null) t.getParent().getChildren().remove(t);
+    }
+    public void rmGebaeudeFromTree(){
+        TreeItem<Object> t = treeView.getSelectionModel().getSelectedItem();
+        if(t != null) t.getParent().getChildren().remove(t);
     }
     public void selectGebaeude(){
             Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
@@ -154,14 +184,7 @@ public class Controller implements Initializable {
 
 
     }
-    public void addAusstattung(){
-        kunden.getGebaeudeListe(0).get(0).getAustattung().addTisch(12,"flur", new Auftrag_Organisator(), 101);
-        kunden.getGebaeudeListe(0).get(0).getAustattung().addTisch(12,"flur", new Auftrag_Organisator(), 102);
-        kunden.getGebaeudeListe(0).get(0).getAustattung().addTisch(12,"flur", new Auftrag_Organisator(), 103);
 
-        kunden.getGebaeudeListe(1).get(0).getAustattung().addTisch(12,"flur", new Auftrag_Organisator(), 201);
-        kunden.getGebaeudeListe(1).get(0).getAustattung().addTisch(12,"flur", new Auftrag_Organisator(), 202);
-    }
 
 
     public void upload() throws SQLException{
@@ -205,6 +228,28 @@ public class Controller implements Initializable {
         if(result.isPresent()){
             result.get();
         }
+    }
+    public void deleteKunde(){
+        Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
+        if(k != null) kunden.delete(k);
+    }
+
+    public void addGebaeude() throws IOException {
+        Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
+        if(k != null){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/GebaeudeDialog.fxml"));
+            fxmlLoader.load();
+            Gebaude_Controller controller = fxmlLoader.getController();
+            controller.setResultConverter(k.getGebaeude());
+            Optional<Void> result = controller.getDialog().showAndWait();
+            if(result.isPresent()) result.get();
+        }
+
+    }
+    public void deleteGebaeude(){
+        Kunde k = (Kunde) treeView.getSelectionModel().getSelectedItem().getParent().getValue();
+        Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
+        if(g != null && k != null) k.getGebaeude().delete(g);
     }
 
     }

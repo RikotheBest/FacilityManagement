@@ -43,12 +43,13 @@ public class Gebaeude_Organisator {
      * @param ausstattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
      */
 
-    public void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
+    public Void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
         boolean existiert = false;
         for(Gebaeude a : gebaeudeListe){
             if(a.getNummer() == nummer) existiert = true;
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
         else gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
+        return null;
     }
 
     /**
@@ -56,6 +57,7 @@ public class Gebaeude_Organisator {
      *
      * @param g Das zu entfernende Gebäude.
      */
+
     public void delete(Gebaeude g){
         gebaeudeListe.remove(g);
     }

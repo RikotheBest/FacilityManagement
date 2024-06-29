@@ -31,15 +31,15 @@
                         <Menu mnemonicParsing="false" text="Add">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#addKunde" onMenuValidation="#addKunde" text="Add Kunde" />
-                              <MenuItem mnemonicParsing="false" text="Add Gebaeude" />
-                              <MenuItem mnemonicParsing="false" onAction="#addAusstattung" text="Add Ausstattung" />
+                              <MenuItem mnemonicParsing="false" onAction="#addGebaeude" text="Add Gebaeude" />
+                              <MenuItem mnemonicParsing="false" text="Add Ausstattung" />
                               <MenuItem mnemonicParsing="false" text="Add Auftrag" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Delete">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Delete Kunde" />
-                          <MenuItem mnemonicParsing="false" text="Delete Gebaeude" />
+                              <MenuItem mnemonicParsing="false" onAction="#deleteKunde" text="Delete Kunde" />
+                          <MenuItem mnemonicParsing="false" onAction="#deleteGebaeude" text="Delete Gebaeude" />
                               <MenuItem mnemonicParsing="false" text="Delete Auftrag" />
                               <MenuItem mnemonicParsing="false" text="Delete Ausstattung" />
                            </items>
