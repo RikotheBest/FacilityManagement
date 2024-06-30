@@ -41,13 +41,12 @@ public class Kunde_Organisator {
      * @param name Der Name des Kunden.
      * @param gebaeude Der Gebäudeorganisator des Kunden.
      */
-    public Void add(String name, Gebaeude_Organisator gebaeude, int nummer){
+    public void add(String name, Gebaeude_Organisator gebaeude, int nummer){
         boolean existiert = false;
         for(Kunde k : kundenListe){
             if(k.getName().equals(name)) existiert = true;
         } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
         else kundenListe.add(new Kunde(name, gebaeude, nummer));
-        return null;
     }
 
     /**

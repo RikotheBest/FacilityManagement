@@ -61,7 +61,7 @@ public class Gebaude_Controller implements Initializable {
             @Override
             public Void call(ButtonType buttonType) {
                 if(buttonType == ButtonType.OK){
-                    return g.add(formatter.getValue(), null, null, new Ausstattung_Organisator());
+                    g.add(formatter.getValue(), null, null, new Ausstattung_Organisator());
                 }
                 return null;
             }

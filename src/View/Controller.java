@@ -251,6 +251,21 @@ public class Controller implements Initializable {
         Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
         if(g != null && k != null) k.getGebaeude().delete(g);
     }
+    public void addAusstattung() throws IOException {
+        Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
+        if(g != null){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/AusstattungDialog.fxml"));
+            fxmlLoader.load();
+            Ausstattung_Controller controller = fxmlLoader.getController();
+            controller.setResultConverter(g.getAustattung());
+            Optional<Void> result = controller.getDialog().showAndWait();
+            if(result.isPresent()) result.get();
+        }
+    }
+    public void deleteAusstattung(){
+        Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
+        if(a != null) tableAusstattung.getItems().remove(a);
+    }
 
     }
 
