@@ -51,7 +51,7 @@ public class Gebaude_Controller implements Initializable {
     }
 
     private boolean validateDialog() {
-        if(formatter.getValue() == null){
+        if(formatter.getValue() == 0){
             return false;
         }
         return true;

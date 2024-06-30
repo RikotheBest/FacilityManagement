@@ -57,7 +57,7 @@ public class Ausstattung_Controller implements Initializable {
             public void handle(ActionEvent actionEvent) {
                 if(!validateDialog()) actionEvent.consume();
             }
-            
+
         });
     }
     private boolean validateDialog() {
