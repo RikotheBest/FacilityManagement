@@ -55,9 +55,16 @@ public class Ausstattung_Controller implements Initializable {
         button.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(nummerFormatter.getValue() == null && choiceBox.getValue() == null) actionEvent.consume();
+                if(!validateDialog()) actionEvent.consume();
             }
+            
         });
+    }
+    private boolean validateDialog() {
+        if((nummerFormatter.getValue() == 0) || (preisFormatter.getValue() == 0) || (choiceBox.getValue() == null) || (ortField.getText() == null)){
+            return false;
+        }
+        return true;
     }
     public void checkForChoice(Ausstattung_Organisator a){
         String Choice = choiceBox.getValue();

@@ -58,7 +58,7 @@ public class Auftrag_Controller implements Initializable {
             }
 
             private boolean validateDialog() {
-                if((formatter.getValue() == null) || (kategorieChoiceBox.getValue() == null) || (statusChoiceBox.getValue() == null) || (datePicker.getValue() == null)){
+                if((formatter.getValue() == 0) || (kategorieChoiceBox.getValue() == null) || (statusChoiceBox.getValue() == null) || (datePicker.getValue() == null)){
                     return false;
                 }
                 return true;
