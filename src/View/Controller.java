@@ -266,6 +266,22 @@ public class Controller implements Initializable {
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
         if(a != null) tableAusstattung.getItems().remove(a);
     }
+    public void addAuftrag() throws IOException {
+        Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
+        if(a != null){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/AuftragDialog.fxml"));
+            fxmlLoader.load();
+            Auftrag_Controller controller = fxmlLoader.getController();
+            controller.setResultConverter(a.getAuftraege());
+            Optional<Void> result = controller.getDialog().showAndWait();
+            if(result.isPresent()) result.get();
+        }
+
+    }
+    public void deleteAuftrag(){
+        Auftrag a = tableAuftrag.getSelectionModel().getSelectedItem();
+        tableAuftrag.getItems().remove(a);
+    }
 
     }
 
