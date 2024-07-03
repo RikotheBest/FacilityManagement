@@ -75,15 +75,12 @@ public class Kunde_Organisator {
                 statement.setString(2, gson.toJson(g.getAdresse()));
                 statement.setString(3, gson.toJson(g.getGroesse()));
                 statement.setInt(4, kundenListe.get(i).getNummer());
-                statement.executeUpdate();
-
+                statement.addBatch();
             }
             i++;
         }
-
+        int[] results = statement.executeBatch();
         statement.close();
-
-
     }
     public void uploadGebaeude(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Gebaeude";
@@ -108,13 +105,12 @@ public class Kunde_Organisator {
         PreparedStatement statement = con.prepareStatement(speichernSQL);
         Gson gson = new Gson();
 
-
         for (Kunde k : kundenListe) {
                 statement.setInt(1, k.getNummer());
                 statement.setString(2, k.getName());
-                statement.executeUpdate();
+                statement.addBatch();
         }
-
+        int[] results = statement.executeBatch();
         statement.close();
     }
     public void upload(Connection con) throws SQLException {

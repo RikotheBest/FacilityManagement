@@ -91,11 +91,12 @@ public class Gebaeude_Organisator {
                 statement.setString(3, a.getOrt());
                 statement.setInt(4, a.getPreis());
                 statement.setString(5, a.getName());
-                statement.executeUpdate();
+                statement.addBatch();
 
             }
             i++;
         }
+        int[] results = statement.executeBatch();
         statement.close();
 
     }

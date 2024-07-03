@@ -165,9 +165,9 @@ public class Controller implements Initializable {
         tableAuftrag.setItems(a.getAuftraege().getAuftraege());
     }
 
-        public void save () {
-        try{
+        public void save() throws SQLException {
             Connection con = DriverManager.getConnection(URL);
+            con.setAutoCommit(false);
             clearDb(con);
             kunden.speichern(con);
             kunden.speichereGebaeude(con);
@@ -177,10 +177,9 @@ public class Controller implements Initializable {
                     g.getAustattung().speichereAuftraege(con);
                 }
             }
+            con.setAutoCommit(true);
             con.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+
 
 
     }
@@ -199,6 +198,13 @@ public class Controller implements Initializable {
         }
         con.close();
     }
+    public void start() throws SQLException {
+        kunden = new Kunde_Organisator();
+        upload();
+        createTree();
+        createKundenListener();
+        createGebaudeListener();
+    }
     public void clearDb(Connection con) throws SQLException {
         String loeschenSQL1 = "DELETE FROM Ausstattung";
         String loeschenSQL2 = "DELETE FROM Auftrag";
@@ -206,20 +212,12 @@ public class Controller implements Initializable {
         String loeschenSQL4 = "DELETE FROM Kunden";
 
         Statement statement1 = con.createStatement();
-        statement1.executeUpdate(loeschenSQL1);
+        statement1.addBatch(loeschenSQL1);
+        statement1.addBatch(loeschenSQL2);
+        statement1.addBatch(loeschenSQL3);
+        statement1.addBatch(loeschenSQL4);
+        int[] results = statement1.executeBatch();
         statement1.close();
-
-        Statement statement2 = con.createStatement();
-        statement2.executeUpdate(loeschenSQL2);
-        statement2.close();
-
-        Statement statement3 = con.createStatement();
-        statement3.executeUpdate(loeschenSQL3);
-        statement3.close();
-
-        Statement statement4 = con.createStatement();
-        statement4.executeUpdate(loeschenSQL4);
-        statement4.close();
     }
 
     public void addKunde(){

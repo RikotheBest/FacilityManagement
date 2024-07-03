@@ -152,11 +152,11 @@ public class Ausstattung_Organisator {
                         statement.setString(3, a.getKategorie());
                         statement.setString(4, a.getStatus());
                         statement.setInt(5, austattungList.get(i).getNummer());
-                        statement.executeUpdate();
+                        statement.addBatch();
                     }
                     i++;
-              
                 }
+                int[] results = statement.executeBatch();
                 statement.close();
 
         } catch (SQLException e) {

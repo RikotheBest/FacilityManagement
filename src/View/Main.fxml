@@ -23,7 +23,7 @@
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                            </accelerator></MenuItem>
-                        <MenuItem fx:id="revertButton" mnemonicParsing="false" text="Revert Changes" />
+                        <MenuItem fx:id="revertButton" mnemonicParsing="false" onAction="#start" text="Revert Changes" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
