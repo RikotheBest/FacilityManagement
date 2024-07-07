@@ -78,28 +78,37 @@ public class Gebaeude_Organisator {
      */
     public void speichereAusstattung(Connection con)throws SQLException {
         String speichernSQL = "INSERT INTO Ausstattung (" + AUSSTATTUNGID +", " + GEBAEUDEID + ", " + ORT +  ", " + PREIS + ", " + NAME + ") VALUES(?,?,?,?,?)";
-        PreparedStatement statement = con.prepareStatement(speichernSQL);
+        PreparedStatement statement = null;
 
-        int i = 0;
+        try {
+            statement = con.prepareStatement(speichernSQL);
+            int i = 0;
 
-        for (Gebaeude g : getGebaeudeListe()) {
-            System.out.println("test");
-            for (Ausstattung a : getAusstattungsListe(i)) {
-                System.out.println("test1");
-                statement.setInt(1, a.getNummer());
-                statement.setInt(2, getGebaeudeListe().get(i).getNummer());
-                statement.setString(3, a.getOrt());
-                statement.setInt(4, a.getPreis());
-                statement.setString(5, a.getName());
-                statement.addBatch();
-
+            for (Gebaeude g : getGebaeudeListe()) {
+                for (Ausstattung a : getAusstattungsListe(i)) {
+                    statement.setInt(1, a.getNummer());
+                    statement.setInt(2, getGebaeudeListe().get(i).getNummer());
+                    statement.setString(3, a.getOrt());
+                    statement.setInt(4, a.getPreis());
+                    statement.setString(5, a.getName());
+                    statement.addBatch();
+                }
+                i++;
             }
-            i++;
+            int[] results = statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        int[] results = statement.executeBatch();
-        statement.close();
-
     }
+
 
     /**
      * Lädt alle Ausstattungen aus der Datenbank und fügt sie den entsprechenden Gebäuden hinzu.
@@ -108,31 +117,56 @@ public class Gebaeude_Organisator {
      */
     public void upload(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Ausstattung";
-        Statement statement = con.createStatement();
-        ResultSet result = statement.executeQuery(uploadSQL);
+        Statement statement = null;
+        ResultSet result = null;
 
-        while (result.next()){
-            int i = result.getInt(GEBAEUDEID);
-            String n = result.getString(NAME);
-            for(Gebaeude g : gebaeudeListe){
-                if(g.getNummer() == i){
-                   switch (n){
-                       case "Rauchmelder": g.getAustattung().addRauchmelder(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
-                       break;
-                       case "Feuerloescher": g.getAustattung().addFeuerloescher(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
-                       break;
-                       case "Tisch": g.getAustattung().addTisch(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
-                       break;
-                       case "Sitzmoebel": g.getAustattung().addSitzmoebel(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
-                       break;
-                       case "Schrank": g.getAustattung().addSchrank(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
-                       break;
-                   }
+        try {
+            statement = con.createStatement();
+            result = statement.executeQuery(uploadSQL);
 
+            while (result.next()) {
+                int i = result.getInt(GEBAEUDEID);
+                String n = result.getString(NAME);
+                for (Gebaeude g : gebaeudeListe) {
+                    if (g.getNummer() == i) {
+                        switch (n) {
+                            case "Rauchmelder":
+                                g.getAustattung().addRauchmelder(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                                break;
+                            case "Feuerloescher":
+                                g.getAustattung().addFeuerloescher(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                                break;
+                            case "Tisch":
+                                g.getAustattung().addTisch(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                                break;
+                            case "Sitzmoebel":
+                                g.getAustattung().addSitzmoebel(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                                break;
+                            case "Schrank":
+                                g.getAustattung().addSchrank(result.getInt(PREIS), result.getString(ORT), new Auftrag_Organisator(), result.getInt(AUSSTATTUNGID));
+                                break;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (result != null) {
+                try {
+                    result.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         }
-        statement.close();
     }
     public String toString(){
         for (Gebaeude g:
