@@ -19,7 +19,16 @@ public class Kunde {
      * @param gebaeude Der Gebäudeorganisator des Kunden.
      */
     public Kunde(String name, Gebaeude_Organisator gebaeude, int nummer) {
-        this.name = name;
+    	if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name darf nicht null oder leer sein.");
+        }
+        if (gebaeude == null) {
+            throw new IllegalArgumentException("Gebaeude_Organisator darf nicht null sein.");
+        }
+        if (nummer <= 0) {
+            throw new IllegalArgumentException("Nummer muss größer als null sein.");
+        }
+    	this.name = name;
         this.gebaeude = gebaeude;
         this.nummer = nummer;
     }
@@ -32,16 +41,32 @@ public class Kunde {
     }
 
     public void setNummer(int nummer) {
-        this.nummer = nummer;
+    	if (nummer <= 0) {
+            throw new IllegalArgumentException("Nummer muss größer als null sein.");
+        }
+    	this.nummer = nummer;
     }
 
     public String getName() {return name;}
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+    	if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name darf nicht null oder leer sein.");
+        }
+    	this.name = name;
+    }
 
-    public Gebaeude_Organisator getGebaeude() {return gebaeude;}
+    public Gebaeude_Organisator getGebaeude() {
+        return gebaeude;
+    }
 
-    public void setGebaeude(Gebaeude_Organisator gebaeude) {this.gebaeude = gebaeude;}
+
+    public void setGebaeude(Gebaeude_Organisator gebaeude) {
+        if (gebaeude == null) {
+            throw new IllegalArgumentException("Gebaeude_Organisator darf nicht null sein.");
+        }
+        this.gebaeude = gebaeude;
+    }
 
     @Override
     public String toString() {
