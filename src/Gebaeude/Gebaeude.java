@@ -22,6 +22,7 @@ public class Gebaeude {
      * @param groesse Die Größe des Gebäudes.
      * @param adresse Die Adresse des Gebäudes.
      * @param austattung Der Ausstattung_Organisator, der die zugehörige Ausstattung verwaltet.
+     * @throws IllegalArgumentException Wenn die Nummer kleiner oder gleich null ist.
      */
     public Gebaeude(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator austattung) {
     	if (nummer <= 0) {
