@@ -42,11 +42,18 @@ public class Kunde_Organisator {
      * @param gebaeude Der Gebäudeorganisator des Kunden.
      */
     public void add(String name, Gebaeude_Organisator gebaeude, int nummer){
-        boolean existiert = false;
-        for(Kunde k : kundenListe){
-            if(k.getName().equals(name)) existiert = true;
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else kundenListe.add(new Kunde(name, gebaeude, nummer));
+    	boolean existiert = false;
+        for (Kunde k : kundenListe) {
+            if (k.getName().equals(name)) {
+                existiert = true;
+                break;
+            }
+        }
+        if (existiert) {
+            System.out.println("Bitte geben sie eine andere Nummer ein!");
+        } else {
+            kundenListe.add(new Kunde(name, gebaeude, nummer));
+        }
     }
 
     /**
@@ -65,64 +72,69 @@ public class Kunde_Organisator {
 
     public void speichereGebaeude(Connection con)throws SQLException {
         String speichernSQL = "INSERT INTO Gebaeude (" + GEBAEUDEID +", " + ADRESSE + ", " + GROESSE +  ", " + KUNDEID + ") VALUES(?,?,?,?)";
-        PreparedStatement statement = con.prepareStatement(speichernSQL);
-        Gson gson = new Gson();
-        int i = 0;
+        try (PreparedStatement statement = con.prepareStatement(speichernSQL)) {
+            Gson gson = new Gson();
+            int i = 0;
 
-        for (Kunde k : kundenListe) {
-            for (Gebaeude g : getGebaeudeListe(i)) {
-                statement.setInt(1, g.getNummer());
-                statement.setString(2, gson.toJson(g.getAdresse()));
-                statement.setString(3, gson.toJson(g.getGroesse()));
-                statement.setInt(4, kundenListe.get(i).getNummer());
-                statement.addBatch();
+            for (Kunde k : kundenListe) {
+                for (Gebaeude g : getGebaeudeListe(i)) {
+                    statement.setInt(1, g.getNummer());
+                    statement.setString(2, gson.toJson(g.getAdresse()));
+                    statement.setString(3, gson.toJson(g.getGroesse()));
+                    statement.setInt(4, kundenListe.get(i).getNummer());
+                    statement.addBatch();
+                }
+                i++;
             }
-            i++;
+            int[] results = statement.executeBatch();
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Speichern der Gebäude: " + e.getMessage());
         }
-        int[] results = statement.executeBatch();
-        statement.close();
     }
+    
     public void uploadGebaeude(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Gebaeude";
-        Statement statement = con.createStatement();
-        ResultSet result = statement.executeQuery(uploadSQL);
+        try (Statement statement = con.createStatement();
+                ResultSet result = statement.executeQuery(uploadSQL)) {
+               Gson gson = new Gson();
 
-        Gson gson = new Gson();
-
-        while (result.next()){
-            int i = result.getInt(KUNDEID);
-            for(Kunde k : kundenListe){
-                if(k.getNummer() == i){
-                    k.getGebaeude().add(result.getInt(GEBAEUDEID), gson.fromJson(result.getString(GROESSE), Groesse.class),
-                            gson.fromJson(result.getString(ADRESSE), Adresse.class), new Ausstattung_Organisator());
-                }
-            }
-        }
-        statement.close();
-    }
+               while (result.next()) {
+                   int i = result.getInt(KUNDEID);
+                   for (Kunde k : kundenListe) {
+                       if (k.getNummer() == i) {
+                           k.getGebaeude().add(result.getInt(GEBAEUDEID), gson.fromJson(result.getString(GROESSE), Groesse.class),
+                                   gson.fromJson(result.getString(ADRESSE), Adresse.class), new Ausstattung_Organisator());
+                       }
+                   }
+               }
+           } catch (SQLException e) {
+               System.err.println("Fehler beim Hochladen der Gebäude: " + e.getMessage());
+           }
+       }
+    
     public void speichern(Connection con)throws SQLException{
         String speichernSQL = "INSERT INTO Kunden (" + KUNDEID +", " + NAME +  ") VALUES(?,?)";
-        PreparedStatement statement = con.prepareStatement(speichernSQL);
-        Gson gson = new Gson();
-
-        for (Kunde k : kundenListe) {
+        try (PreparedStatement statement = con.prepareStatement(speichernSQL)) {
+            for (Kunde k : kundenListe) {
                 statement.setInt(1, k.getNummer());
                 statement.setString(2, k.getName());
                 statement.addBatch();
+            }
+            int[] results = statement.executeBatch();
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Speichern der Kunden: " + e.getMessage());
         }
-        int[] results = statement.executeBatch();
-        statement.close();
     }
+    
     public void upload(Connection con) throws SQLException {
         String uploadSQL = "SELECT * FROM Kunden";
-        Statement statement = con.createStatement();
-        ResultSet result = statement.executeQuery(uploadSQL);
-
-
-        while (result.next()){
-                 kundenListe.add(new Kunde(result.getString(NAME), new Gebaeude_Organisator(),result.getInt(KUNDEID)));
-        }
-        statement.close();
-    }
-
-}
+        try (Statement statement = con.createStatement();
+                ResultSet result = statement.executeQuery(uploadSQL)) {
+               while (result.next()) {
+                   kundenListe.add(new Kunde(result.getString(NAME), new Gebaeude_Organisator(), result.getInt(KUNDEID)));
+               }
+           } catch (SQLException e) {
+               System.err.println("Fehler beim Hochladen der Kunden: " + e.getMessage());
+           }
+       }
+   }
