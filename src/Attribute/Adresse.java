@@ -9,10 +9,10 @@ public class Adresse {
     private int post;
     private String land;
     /**
-     *Konstruktor zum Initialisieren eines Datums mit Tag, Monat und Jahr.
+     * Konstruktor zum Initialisieren einer Adresse mit Straße, Postleitzahl und Land.
      *
      * @param strasse Die Straße der Adresse.
-     * @param post Die Postleitzahl der Adresse.
+     * @param postleitzahl Die Postleitzahl der Adresse.
      * @param land Das Land der Adresse.
      */
     public Adresse(String strasse, int post, String land) {
