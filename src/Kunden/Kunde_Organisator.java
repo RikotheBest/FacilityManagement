@@ -5,6 +5,8 @@ import Attribute.Groesse;
 import Ausstattung.Ausstattung_Organisator;
 import Gebaeude.Gebaeude;
 import Gebaeude.Gebaeude_Organisator;
+import View.AlertFenster;
+
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,15 +44,23 @@ public class Kunde_Organisator {
      * @param gebaeude Der Gebäudeorganisator des Kunden.
      */
     public void add(String name, Gebaeude_Organisator gebaeude, int nummer){
-    	boolean existiert = false;
+    	boolean nameExistiert = false;
+    	boolean nummerExistiert = false;
         for (Kunde k : kundenListe) {
             if (k.getName().equals(name)) {
-                existiert = true;
-                break;
+            	nameExistiert = true;
+            }	
+            if (k.getNummer() == nummer) {
+            	nummerExistiert = true;
             }
+            break;
         }
-        if (existiert) {
-            System.out.println("Bitte geben sie eine andere Nummer ein!");
+        if (nameExistiert && nummerExistiert) {
+            AlertFenster.showAlert("Name und Nummer bereits vergeben", "Bitte geben Sie einen anderen Namen und eine andere Nummer ein!");
+        } else if (nameExistiert) {
+            AlertFenster.showAlert("Name bereits vergeben", "Bitte geben Sie einen anderen Namen ein!");
+        } else if (nummerExistiert) {
+            AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
         } else {
             kundenListe.add(new Kunde(name, gebaeude, nummer));
         }

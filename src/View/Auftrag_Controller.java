@@ -52,18 +52,67 @@ public class Auftrag_Controller implements Initializable {
         button.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if(!validateDialog()){
-                    actionEvent.consume();
-                }
+                if(!validateDialog()) actionEvent.consume();
             }
 
-            private boolean validateDialog() {
-                if((formatter.getValue() == 0) || (kategorieChoiceBox.getValue() == null) || (statusChoiceBox.getValue() == null) || (datePicker.getValue() == null)){
-                    return false;
-                }
-                return true;
-            }
         });
+    }
+    private boolean validateDialog() {
+        boolean nummerLeer = formatter.getValue() == 0;
+        boolean kategorieLeer = kategorieChoiceBox.getValue() == null;
+        boolean statusLeer = statusChoiceBox.getValue() == null;
+        boolean datumLeer = datePicker.getValue() == null;
+        boolean nummerNegative = (formatter.getValue() < 0);
+        
+        if (nummerNegative) {
+        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer darf nicht negativ sein.");
+        }
+        if (nummerLeer && kategorieLeer && statusLeer && datumLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte füllen Sie alle Felder aus.");
+            return false;
+        }
+        if (nummerLeer && kategorieLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und eine Kategorie ein.");
+            return false;
+        }
+        if (nummerLeer && statusLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Status ein.");
+            return false;
+        }
+        if (nummerLeer && datumLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und ein Datum ein.");
+            return false;
+        }
+        if (kategorieLeer && statusLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Kategorie und einen Status ein.");
+            return false;
+        }
+        if (kategorieLeer && datumLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Kategorie und ein Datum ein.");
+            return false;
+        }
+        if (statusLeer && datumLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Status und ein Datum ein.");
+            return false;
+        }
+        if (nummerLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer ein.");
+            return false;
+        }
+        if (kategorieLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie eine Kategorie aus.");
+            return false;
+        }
+        if (statusLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie einen Status aus.");
+            return false;
+        }
+        if (datumLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie ein Datum aus.");
+            return false;
+        }
+
+        return true;
     }
     public void setResultConverter(Auftrag_Organisator a){
         Callback<ButtonType, Void> converter = new Callback<ButtonType, Void>() {
@@ -81,6 +130,4 @@ public class Auftrag_Controller implements Initializable {
     public Dialog<Void> getDialog() {
         return dialog;
     }
-
-
 }

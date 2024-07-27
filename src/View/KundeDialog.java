@@ -43,14 +43,21 @@ public class KundeDialog extends Dialog<Void> {
 
     }
 
-
-
     private boolean validateDialog() {
-        if ((nameField.getText().isEmpty()) || (nummerFormatter.getValue() ==0)){
-            return false;
-        }
-        return true;
+    	  if (nummerFormatter.getValue() <= 0) {
+         	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer muss groeßer als 0 sein.");
+    	  }
+    	  if (nameField.getText().isEmpty() && nummerFormatter.getValue() == 0) {
+              AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Kundennamen und eine Nummer ein.");
+              return false;
+          }
+          if (nameField.getText().isEmpty()) {
+              AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Kundennamen ein.");
+              return false;
+          }
+          return true;
     }
+    
     public void createResultConverter(Kunde_Organisator kunde){
         Callback<ButtonType,Void> resultConverter = new Callback<ButtonType, Void>() {
             @Override

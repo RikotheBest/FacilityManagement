@@ -61,9 +61,64 @@ public class Ausstattung_Controller implements Initializable {
         });
     }
     private boolean validateDialog() {
-        if((nummerFormatter.getValue() == 0) || (preisFormatter.getValue() == 0) || (choiceBox.getValue() == null) || (ortField.getText() == null)){
+        boolean nummerLeer = (nummerFormatter.getValue() == 0);
+        boolean preisLeer = (preisFormatter.getValue() == 0);
+        boolean choiceLeer = (choiceBox.getValue() == null);
+        boolean ortLeer = (ortField.getText() == null || ortField.getText().isEmpty());
+        boolean nummerNegative = (nummerFormatter.getValue() < 0);
+        boolean preisNegative = (preisFormatter.getValue() < 0);
+        
+        if (nummerNegative) {
+        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer darf nicht negativ sein.");
+        }
+        if (preisNegative) {
+        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Der Preis darf nicht negativ sein.");
+        }
+        if ((nummerLeer && preisLeer && choiceLeer && ortLeer)||(nummerLeer && preisLeer && choiceLeer)||(preisLeer && choiceLeer && ortLeer)||(nummerLeer&& choiceLeer && ortLeer)||(nummerLeer && preisLeer && ortLeer)) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte füllen Sie alle Felder aus.");
             return false;
         }
+        if (nummerLeer && choiceLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Namen ein.");
+            return false;
+        }
+        if (nummerLeer && preisLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Preis ein.");
+            return false;
+        }
+        if (nummerLeer && ortLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Ort ein.");
+            return false;
+        }
+        if (preisLeer && ortLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Ort ein.");
+            return false;
+        }
+        if (preisLeer && choiceLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Namen ein.");
+            return false;
+        }
+        if (ortLeer && choiceLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Namen ein.");
+            return false;
+        }
+        if (nummerLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer ein.");
+            return false;
+        }
+        if (preisLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis ein.");
+            return false;
+        }
+        if (choiceLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie eine Kategorie aus.");
+            return false;
+        }
+        if (ortLeer) {
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Ort ein.");
+            return false;
+        }
+
         return true;
     }
     public void checkForChoice(Ausstattung_Organisator a){

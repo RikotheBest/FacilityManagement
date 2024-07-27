@@ -1,6 +1,7 @@
 package Auftraege;
 
 import Attribute.Datum;
+import View.AlertFenster;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -54,6 +55,7 @@ public class Auftrag_Organisator {
         }
         for (Auftrag a : auftraege) {
             if (a.getNummer() == nummer) {
+            	AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
                 throw new IllegalArgumentException("Bitte geben Sie eine andere Nummer ein. Die Nummer " + nummer + " existiert bereits.");
             }
         }

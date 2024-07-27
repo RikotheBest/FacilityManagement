@@ -6,6 +6,7 @@ import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
 import Kunden.Kunde_Organisator;
+import View.AlertFenster;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -44,11 +45,16 @@ public class Gebaeude_Organisator {
      */
 
     public void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
-        boolean existiert = false;
+    	boolean nummerExistiert = false;
         for(Gebaeude a : gebaeudeListe){
-            if(a.getNummer() == nummer) existiert = true;
-        } if(existiert) System.out.println("Bitte geben sie eine andere Nummer ein!");
-        else gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
+        	if (a.getNummer() == nummer) {
+            	nummerExistiert = true;
+            }
+            break;
+        }
+        	if (nummerExistiert) {
+                AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
+        }else gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
     }
 
     /**

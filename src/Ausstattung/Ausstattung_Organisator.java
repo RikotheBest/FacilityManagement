@@ -5,6 +5,7 @@ import Auftraege.Auftrag;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Brandschutz.*;
 import Ausstattung.Moebel.*;
+import View.AlertFenster;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,6 +33,7 @@ public class Ausstattung_Organisator {
     private void checkForDuplicateNumber(int nummer) {
         for (Ausstattung a : austattungList) {
             if (a.getNummer() == nummer) {
+            	AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
                 throw new IllegalArgumentException("Die Folgende Nummer ist bereits vergeben: " + nummer + "Bitte geben Sie eine andere Nummer ein!");
             }
         }
