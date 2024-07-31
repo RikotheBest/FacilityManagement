@@ -53,7 +53,7 @@ public class Kunde_Organisator {
             if (k.getNummer() == nummer) {
             	nummerExistiert = true;
             }
-            break;
+            
         }
         if (nameExistiert && nummerExistiert) {
             AlertFenster.showAlert("Name und Nummer bereits vergeben", "Bitte geben Sie einen anderen Namen und eine andere Nummer ein!");
