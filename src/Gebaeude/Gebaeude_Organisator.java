@@ -48,9 +48,8 @@ public class Gebaeude_Organisator {
     	boolean nummerExistiert = false;
         for(Gebaeude a : gebaeudeListe){
         	if (a.getNummer() == nummer) {
-            	nummerExistiert = true;
+                nummerExistiert = true;
             }
-            break;
         }
         	if (nummerExistiert) {
                 AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
