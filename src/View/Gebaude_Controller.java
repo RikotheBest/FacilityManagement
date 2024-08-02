@@ -53,7 +53,12 @@ public class Gebaude_Controller implements Initializable {
     private boolean validateDialog() {
         if (formatter.getValue() <= 0) {
          	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer muss groeßer als 0 sein.");
+             return false;
     	  }
+        if (formatter.getValue() == 0){
+            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer ein");
+            return false;
+        }
         return true;
     }
     public void setResultConverter(Gebaeude_Organisator g){

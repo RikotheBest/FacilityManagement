@@ -46,6 +46,7 @@ public class KundeDialog extends Dialog<Void> {
     private boolean validateDialog() {
     	  if (nummerFormatter.getValue() <= 0) {
          	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer muss groeßer als 0 sein.");
+             return false;
     	  }
     	  if (nameField.getText().isEmpty() && nummerFormatter.getValue() == 0) {
               AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Kundennamen und eine Nummer ein.");

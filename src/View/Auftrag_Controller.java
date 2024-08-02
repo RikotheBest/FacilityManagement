@@ -58,61 +58,36 @@ public class Auftrag_Controller implements Initializable {
         });
     }
     private boolean validateDialog() {
+        boolean validated = true;
         boolean nummerLeer = formatter.getValue() == 0;
         boolean kategorieLeer = kategorieChoiceBox.getValue() == null;
         boolean statusLeer = statusChoiceBox.getValue() == null;
         boolean datumLeer = datePicker.getValue() == null;
-        boolean nummerNegative = (formatter.getValue() < 0);
-        
-        if (nummerNegative) {
-        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer darf nicht negativ sein.");
-        }
-        if (nummerLeer && kategorieLeer && statusLeer && datumLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte füllen Sie alle Felder aus.");
-            return false;
-        }
-        if (nummerLeer && kategorieLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und eine Kategorie ein.");
-            return false;
-        }
-        if (nummerLeer && statusLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Status ein.");
-            return false;
-        }
-        if (nummerLeer && datumLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und ein Datum ein.");
-            return false;
-        }
-        if (kategorieLeer && statusLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Kategorie und einen Status ein.");
-            return false;
-        }
-        if (kategorieLeer && datumLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Kategorie und ein Datum ein.");
-            return false;
-        }
-        if (statusLeer && datumLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Status und ein Datum ein.");
-            return false;
-        }
-        if (nummerLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer ein.");
-            return false;
+        String alertText = "Bitte fuellen Sie folgende Felder vollstaendig und richtig aus: ";
+        if(nummerLeer){
+            alertText += "Nummer; ";
+            validated = false;
         }
         if (kategorieLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie eine Kategorie aus.");
-            return false;
+            alertText += "Kategorie; ";
+            validated = false;
         }
         if (statusLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie einen Status aus.");
-            return false;
+            alertText += "Status; ";
+            validated = false;
         }
-        if (datumLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie ein Datum aus.");
-            return false;
+        if(datumLeer){
+            alertText += "Datum; ";
+            validated = false;
         }
+        if(!validated){
+            alertText.trim();
+            AlertFenster.showAlert("Fehlerhafte Eingabe", alertText);
+        }
+        return validated;
+        
 
-        return true;
+
     }
     public void setResultConverter(Auftrag_Organisator a){
         Callback<ButtonType, Void> converter = new Callback<ButtonType, Void>() {

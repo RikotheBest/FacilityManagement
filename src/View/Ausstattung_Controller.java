@@ -61,65 +61,33 @@ public class Ausstattung_Controller implements Initializable {
         });
     }
     private boolean validateDialog() {
-        boolean nummerLeer = (nummerFormatter.getValue() == 0);
-        boolean preisLeer = (preisFormatter.getValue() == 0);
-        boolean choiceLeer = (choiceBox.getValue() == null);
-        boolean ortLeer = (ortField.getText() == null || ortField.getText().isEmpty());
-        boolean nummerNegative = (nummerFormatter.getValue() < 0);
-        boolean preisNegative = (preisFormatter.getValue() < 0);
-        
-        if (nummerNegative) {
-        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Die Nummer darf nicht negativ sein.");
-        }
-        if (preisNegative) {
-        	AlertFenster.showAlert("Fehlerhafte Eingabe", "Der Preis darf nicht negativ sein.");
-        }
-        if ((nummerLeer && preisLeer && choiceLeer && ortLeer)||(nummerLeer && preisLeer && choiceLeer)||(preisLeer && choiceLeer && ortLeer)||(nummerLeer&& choiceLeer && ortLeer)||(nummerLeer && preisLeer && ortLeer)) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte füllen Sie alle Felder aus.");
-            return false;
-        }
-        if (nummerLeer && choiceLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Namen ein.");
-            return false;
-        }
-        if (nummerLeer && preisLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Preis ein.");
-            return false;
-        }
-        if (nummerLeer && ortLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer und einen Ort ein.");
-            return false;
-        }
-        if (preisLeer && ortLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Ort ein.");
-            return false;
-        }
-        if (preisLeer && choiceLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Namen ein.");
-            return false;
-        }
-        if (ortLeer && choiceLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis und einen Namen ein.");
-            return false;
-        }
-        if (nummerLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie eine Nummer ein.");
-            return false;
+        boolean validated = true;
+        final boolean nummerLeer = (nummerFormatter.getValue() == 0);
+        final boolean preisLeer = (preisFormatter.getValue() == 0);
+        final boolean choiceLeer = (choiceBox.getValue() == null);
+        final boolean ortLeer = (ortField.getText().isEmpty());
+        String alertText = "Bitte fuellen Sie folgende Felder vollstaendig und richtig aus: ";
+        if(nummerLeer){
+            alertText += "Nummer; ";
+            validated = false;
         }
         if (preisLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Preis ein.");
-            return false;
+            alertText += "Preis; ";
+            validated = false;
         }
         if (choiceLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte wählen Sie eine Kategorie aus.");
-            return false;
+            alertText += "Name; ";
+            validated = false;
         }
-        if (ortLeer) {
-            AlertFenster.showAlert("Fehlerhafte Eingabe", "Bitte geben Sie einen Ort ein.");
-            return false;
+        if(ortLeer){
+            alertText += "Ort; ";
+            validated = false;
         }
-
-        return true;
+        if(!validated){
+            alertText.trim();
+            AlertFenster.showAlert("Fehlerhafte Eingabe", alertText);
+        }
+        return validated;
     }
     public void checkForChoice(Ausstattung_Organisator a){
         String Choice = choiceBox.getValue();
