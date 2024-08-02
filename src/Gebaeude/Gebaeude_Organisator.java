@@ -2,6 +2,7 @@ package Gebaeude;
 
 import Attribute.Adresse;
 import Attribute.Groesse;
+import Attribute.IDs;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Ausstattung;
 import Ausstattung.Ausstattung_Organisator;
@@ -45,15 +46,14 @@ public class Gebaeude_Organisator {
      */
 
     public void add(int nummer, Groesse groesse, Adresse adresse, Ausstattung_Organisator ausstattung){
-    	boolean nummerExistiert = false;
-        for(Gebaeude a : gebaeudeListe){
-        	if (a.getNummer() == nummer) {
-                nummerExistiert = true;
+        for(Integer e : IDs.getGebaeudeIDs()){
+        	if (e == nummer) {
+                AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
+                throw new IllegalArgumentException("Bitte geben Sie eine andere Nummer ein. Die Nummer " + nummer + " existiert bereits.");
             }
         }
-        	if (nummerExistiert) {
-                AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
-        }else gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
+            gebaeudeListe.add(new Gebaeude(nummer, groesse, adresse, ausstattung));
+            IDs.addGebaeudeID(nummer);
     }
 
     /**

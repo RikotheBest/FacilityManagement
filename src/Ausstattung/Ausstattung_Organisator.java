@@ -1,6 +1,7 @@
 package Ausstattung;
 
 import Attribute.Datum;
+import Attribute.IDs;
 import Auftraege.Auftrag;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.Brandschutz.*;
@@ -31,8 +32,8 @@ public class Ausstattung_Organisator {
         austattungList = FXCollections.observableArrayList();
     }
     private void checkForDuplicateNumber(int nummer) {
-        for (Ausstattung a : austattungList) {
-            if (a.getNummer() == nummer) {
+        for (Integer e : IDs.getAusstattungIDs()) {
+            if (e == nummer) {
             	AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
                 throw new IllegalArgumentException("Die Folgende Nummer ist bereits vergeben: " + nummer + "Bitte geben Sie eine andere Nummer ein!");
             }
@@ -48,6 +49,7 @@ public class Ausstattung_Organisator {
      */
     public void addFeuerloescher(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
     	checkForDuplicateNumber(nummer);
+        IDs.addAusstattungID(nummer);
         austattungList.add(new Feuerloescher(preis, ort, auftraege, nummer));
     }
 
@@ -61,6 +63,7 @@ public class Ausstattung_Organisator {
      */
     public void addRauchmelder( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
     	 checkForDuplicateNumber(nummer);
+        IDs.addAusstattungID(nummer);
          austattungList.add(new Rauchmelder(preis, ort, auftraege, nummer));
      }
 
@@ -74,6 +77,7 @@ public class Ausstattung_Organisator {
      */
     public void addSitzmoebel(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
     	checkForDuplicateNumber(nummer);
+        IDs.addAusstattungID(nummer);
         austattungList.add(new Sitzmoebel(preis, ort, auftraege, nummer));
     }
 
@@ -89,6 +93,7 @@ public class Ausstattung_Organisator {
      */
     public void addTisch( int preis, String ort, Auftrag_Organisator auftraege, int nummer){
     	checkForDuplicateNumber(nummer);
+        IDs.addAusstattungID(nummer);
         austattungList.add(new Tisch(preis, ort, auftraege, nummer));
     }
 
@@ -104,6 +109,7 @@ public class Ausstattung_Organisator {
     public void addSchrank(int preis, String ort, Auftrag_Organisator auftraege, int nummer){
     	checkForDuplicateNumber(nummer);
         austattungList.add(new Schrank(preis, ort, auftraege, nummer));
+        IDs.addAusstattungID(nummer);
     }
 
 

@@ -2,6 +2,7 @@ package View;
 
 
 import Attribute.Groesse;
+import Attribute.IDs;
 import Auftraege.Auftrag;
 import Auftraege.Auftrag_Organisator;
 import Ausstattung.*;
@@ -50,8 +51,10 @@ public class Controller implements Initializable {
 
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         kunden = new Kunde_Organisator();
         try {
           upload();

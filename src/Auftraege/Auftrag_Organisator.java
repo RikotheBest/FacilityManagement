@@ -1,6 +1,7 @@
 package Auftraege;
 
 import Attribute.Datum;
+import Attribute.IDs;
 import View.AlertFenster;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,13 +54,14 @@ public class Auftrag_Organisator {
         if (status == null || status.trim().isEmpty()) {
             throw new IllegalArgumentException("Der Status darf nicht leer sein.");
         }
-        for (Auftrag a : auftraege) {
-            if (a.getNummer() == nummer) {
+        for (Integer e : IDs.getAuftragIDs()) {
+            if (e == nummer) {
             	AlertFenster.showAlert("Nummer bereits vergeben", "Bitte geben Sie eine andere Nummer ein!");
                 throw new IllegalArgumentException("Bitte geben Sie eine andere Nummer ein. Die Nummer " + nummer + " existiert bereits.");
             }
         }
         auftraege.add(new Auftrag(geplant,nummer,kategorie,status));
+        IDs.addAuftragID(nummer);
     }
     /**
      * Entfernt einen Auftrag aus der Liste.

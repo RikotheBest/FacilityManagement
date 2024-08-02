@@ -2,6 +2,7 @@ package Kunden;
 
 import Attribute.Adresse;
 import Attribute.Groesse;
+import Attribute.IDs;
 import Ausstattung.Ausstattung_Organisator;
 import Gebaeude.Gebaeude;
 import Gebaeude.Gebaeude_Organisator;
@@ -28,9 +29,11 @@ public class Kunde_Organisator {
     private final String URL = "jdbc:sqlite:DB/FacilityManagement.db";
 
     private ObservableList<Kunde> kundenListe; // Liste der Kunden
+    private IDs ids;
 
     public Kunde_Organisator() {
         kundenListe = FXCollections.observableArrayList();
+        ids = new IDs();
     }
 
     public ObservableList<Kunde> getKundenListe() {
@@ -48,12 +51,12 @@ public class Kunde_Organisator {
     	boolean nummerExistiert = false;
         for (Kunde k : kundenListe) {
             if (k.getName().equals(name)) {
-            	nameExistiert = true;
-            }	
-            if (k.getNummer() == nummer) {
-            	nummerExistiert = true;
+                nameExistiert = true;
             }
-            
+            if (k.getNummer() == nummer) {
+                nummerExistiert = true;
+            }
+
         }
         if (nameExistiert && nummerExistiert) {
             AlertFenster.showAlert("Name und Nummer bereits vergeben", "Bitte geben Sie einen anderen Namen und eine andere Nummer ein!");
