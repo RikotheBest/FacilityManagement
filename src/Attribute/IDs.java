@@ -1,5 +1,11 @@
 package Attribute;
 
+import Auftraege.Auftrag;
+import Ausstattung.Ausstattung;
+import Gebaeude.Gebaeude;
+import Gebaeude.Gebaeude_Organisator;
+import Kunden.Kunde;
+
 import java.util.ArrayList;
 
 public class IDs {
@@ -41,5 +47,26 @@ public class IDs {
 
     public static ArrayList<Integer> getKundenIDs() {
         return kundenIDs;
+    }
+    public static void rmvKundeId(Kunde k, Integer i){
+        kundenIDs.remove(i);
+        for(Gebaeude g : k.getGebaeude().getGebaeudeListe()){
+            rmvGebaeudeId(g, g.getNummer());
+        }
+    }
+    public static void rmvGebaeudeId(Gebaeude g, Integer i){
+        gebaeudeIDs.remove(i);
+        for(Ausstattung a : g.getAustattung().getAustattungList()){
+            rmvAusstattungId(a, a.getNummer());
+        }
+    }
+    public static void rmvAusstattungId(Ausstattung a, Integer i){
+        ausstattungIDs.remove(i);
+        for(Auftrag auftrag : a.getAuftraege().getAuftraege()){
+            rmvAuftragId(auftrag.getNummer());
+        }
+    }
+    public static void rmvAuftragId(Integer i){
+        auftragIDs.remove(i);
     }
 }

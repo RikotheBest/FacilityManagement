@@ -232,8 +232,13 @@ public class Controller implements Initializable {
     }
     public void deleteKunde(){
         Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
-        if(k != null) kunden.delete(k);
+        if(k != null) {
+            kunden.delete(k);
+            IDs.rmvKundeId(k,k.getNummer());
+
+        }
     }
+
 
     public void addGebaeude() throws IOException {
         Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
@@ -250,7 +255,11 @@ public class Controller implements Initializable {
     public void deleteGebaeude(){
         Kunde k = (Kunde) treeView.getSelectionModel().getSelectedItem().getParent().getValue();
         Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
-        if(g != null && k != null) k.getGebaeude().delete(g);
+        if(g != null && k != null) {
+            k.getGebaeude().delete(g);
+            IDs.rmvGebaeudeId(g,g.getNummer());
+
+        }
     }
     public void addAusstattung() throws IOException {
         Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
@@ -265,7 +274,11 @@ public class Controller implements Initializable {
     }
     public void deleteAusstattung(){
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
-        if(a != null) tableAusstattung.getItems().remove(a);
+        if(a != null) {
+            tableAusstattung.getItems().remove(a);
+            IDs.rmvAusstattungId(a,a.getNummer());
+
+        }
     }
     public void addAuftrag() throws IOException {
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
@@ -281,7 +294,11 @@ public class Controller implements Initializable {
     }
     public void deleteAuftrag(){
         Auftrag a = tableAuftrag.getSelectionModel().getSelectedItem();
-        tableAuftrag.getItems().remove(a);
+        if(a != null){
+            tableAuftrag.getItems().remove(a);
+            IDs.rmvAuftragId(a.getNummer());
+
+        }
     }
 
     }
