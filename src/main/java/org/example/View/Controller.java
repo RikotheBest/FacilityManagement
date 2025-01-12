@@ -150,20 +150,25 @@ public class Controller implements Initializable {
         if(t != null) t.getParent().getChildren().remove(t);
     }
     public void selectGebaeude(){
-            Gebaeude g = (Gebaeude)treeView.getSelectionModel().getSelectedItem().getValue();
-            ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
-            ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
-            ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
-            ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
-            tableAusstattung.setItems(g.getAustattung().getAustattungList());
+            Object object = treeView.getSelectionModel().getSelectedItem().getValue();
+            if(object instanceof Gebaeude){
+                Gebaeude g = (Gebaeude) object;
+                ausstattungNummer.setCellValueFactory(new PropertyValueFactory<Ausstattung,Integer>("nummer"));
+                ausstattungName.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("name"));
+                ausstattungOrt.setCellValueFactory(new PropertyValueFactory<Ausstattung, String>("ort"));
+                ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
+                tableAusstattung.setItems(g.getAustattung().getAustattungList());
+            }
     }
     public void selectAusstattung(){
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
-        auftragNummer.setCellValueFactory(new PropertyValueFactory<Auftrag, Integer>("nummer"));
-        auftragKategorie.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("kategorie"));
-        auftragStatus.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("status"));
-        auftragGeplant.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("geplant"));
-        tableAuftrag.setItems(a.getAuftraege().getAuftraege());
+        if(a != null){
+            auftragNummer.setCellValueFactory(new PropertyValueFactory<Auftrag, Integer>("nummer"));
+            auftragKategorie.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("kategorie"));
+            auftragStatus.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("status"));
+            auftragGeplant.setCellValueFactory(new PropertyValueFactory<Auftrag, String>("geplant"));
+            tableAuftrag.setItems(a.getAuftraege().getAuftraege());
+        }
     }
 
         public void save() throws SQLException {
