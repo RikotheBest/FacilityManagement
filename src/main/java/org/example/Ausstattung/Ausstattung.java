@@ -104,7 +104,7 @@ public abstract class Ausstattung {
 	}
 
 	public String toString() {
-		return "org.example.Ausstattung{" +
+		return "Ausstattung{" +
 				"name='" + name + '\'' +
 				", preis=" + preis +
 				", ort='" + ort + '\'' +

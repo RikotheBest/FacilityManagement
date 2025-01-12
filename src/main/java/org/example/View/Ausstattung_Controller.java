@@ -33,7 +33,7 @@ public class Ausstattung_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
-        dialog.setTitle("add org.example.Ausstattung");
+        dialog.setTitle("add Ausstattung");
         setChoiceBox();
         setFormatter();
         setButtonFilter();

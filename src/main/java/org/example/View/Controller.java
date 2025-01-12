@@ -236,7 +236,7 @@ public class Controller implements Initializable {
     public void addGebaeude() throws IOException {
         Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
         if(k != null){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("org/example/GebaeudeDialog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/GebaeudeDialog.fxml"));
             fxmlLoader.load();
             Gebaude_Controller controller = fxmlLoader.getController();
             controller.setResultConverter(k.getGebaeude());
@@ -253,7 +253,7 @@ public class Controller implements Initializable {
     public void addAusstattung() throws IOException {
         Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
         if(g != null){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/AusstattungDialog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/AusstattungDialog.fxml"));
             fxmlLoader.load();
             Ausstattung_Controller controller = fxmlLoader.getController();
             controller.setResultConverter(g.getAustattung());
@@ -268,7 +268,7 @@ public class Controller implements Initializable {
     public void addAuftrag() throws IOException {
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
         if(a != null){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/AuftragDialog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/AuftragDialog.fxml"));
             fxmlLoader.load();
             Auftrag_Controller controller = fxmlLoader.getController();
             controller.setResultConverter(a.getAuftraege());

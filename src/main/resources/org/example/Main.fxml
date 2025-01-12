@@ -24,17 +24,17 @@
                         <Menu mnemonicParsing="false" text="Add">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#addKunde" onMenuValidation="#addKunde" text="Add Kunde" />
-                              <MenuItem mnemonicParsing="false" onAction="#addGebaeude" text="Add org.example.Gebaeude" />
-                              <MenuItem mnemonicParsing="false" onAction="#addAusstattung" text="Add org.example.Ausstattung" />
+                              <MenuItem mnemonicParsing="false" onAction="#addGebaeude" text="Add Gebaeude" />
+                              <MenuItem mnemonicParsing="false" onAction="#addAusstattung" text="Add Ausstattung" />
                               <MenuItem mnemonicParsing="false" onAction="#addAuftrag" text="Add Auftrag" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Delete">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#deleteKunde" text="Delete Kunde" />
-                          <MenuItem mnemonicParsing="false" onAction="#deleteGebaeude" text="Delete org.example.Gebaeude" />
+                          <MenuItem mnemonicParsing="false" onAction="#deleteGebaeude" text="Delete Gebaeude" />
                               <MenuItem mnemonicParsing="false" onAction="#deleteAuftrag" text="Delete Auftrag" />
-                              <MenuItem mnemonicParsing="false" onAction="#deleteAusstattung" text="Delete org.example.Ausstattung" />
+                              <MenuItem mnemonicParsing="false" onAction="#deleteAusstattung" text="Delete Ausstattung" />
                            </items>
                         </Menu>
                   </items>

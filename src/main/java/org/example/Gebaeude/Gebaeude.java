@@ -71,7 +71,7 @@ public class Gebaeude {
 
     @Override
     public String toString() {
-        return "org.example.Gebaeude: " + nummer;
+        return "Gebaeude: " + nummer;
     }
 }
 
