@@ -150,6 +150,7 @@ public class Controller implements Initializable {
         if(t != null) t.getParent().getChildren().remove(t);
     }
     public void selectGebaeude(){
+        if(treeView.getSelectionModel().getSelectedItem() != null){
             Object object = treeView.getSelectionModel().getSelectedItem().getValue();
             if(object instanceof Gebaeude){
                 Gebaeude g = (Gebaeude) object;
@@ -159,6 +160,7 @@ public class Controller implements Initializable {
                 ausstattungPreis.setCellValueFactory(new PropertyValueFactory<Ausstattung, Integer>("preis"));
                 tableAusstattung.setItems(g.getAustattung().getAustattungList());
             }
+        }
     }
     public void selectAusstattung(){
         Ausstattung a = tableAusstattung.getSelectionModel().getSelectedItem();
@@ -234,13 +236,14 @@ public class Controller implements Initializable {
         }
     }
     public void deleteKunde(){
-        Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
-        if(k != null) kunden.delete(k);
+        Object object = treeView.getSelectionModel().getSelectedItem().getValue();
+        if(object instanceof Kunde) kunden.delete((Kunde)object);
     }
 
     public void addGebaeude() throws IOException {
-        Kunde k = (Kunde)treeView.getSelectionModel().getSelectedItem().getValue();
-        if(k != null){
+        Object object = treeView.getSelectionModel().getSelectedItem().getValue();
+        if(object instanceof Kunde){
+            Kunde k = (Kunde)object;
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/GebaeudeDialog.fxml"));
             fxmlLoader.load();
             Gebaude_Controller controller = fxmlLoader.getController();
@@ -251,13 +254,18 @@ public class Controller implements Initializable {
 
     }
     public void deleteGebaeude(){
-        Kunde k = (Kunde) treeView.getSelectionModel().getSelectedItem().getParent().getValue();
-        Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
-        if(g != null && k != null) k.getGebaeude().delete(g);
+        Object objectK =  treeView.getSelectionModel().getSelectedItem().getParent().getValue();
+        Object objectG =  treeView.getSelectionModel().getSelectedItem().getValue();
+        if(objectK instanceof Kunde && objectG instanceof Gebaeude){
+            Kunde k = (Kunde)objectK;
+            Gebaeude g = (Gebaeude)objectG;
+            k.getGebaeude().delete(g);
+        }
     }
     public void addAusstattung() throws IOException {
-        Gebaeude g = (Gebaeude) treeView.getSelectionModel().getSelectedItem().getValue();
-        if(g != null){
+        Object object = treeView.getSelectionModel().getSelectedItem().getValue();
+        if(object instanceof Gebaeude){
+            Gebaeude g = (Gebaeude)object;
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/AusstattungDialog.fxml"));
             fxmlLoader.load();
             Ausstattung_Controller controller = fxmlLoader.getController();
